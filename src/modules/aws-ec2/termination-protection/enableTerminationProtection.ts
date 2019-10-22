@@ -1,4 +1,4 @@
-import { changeTerminationProtection } from './changeTerminationProtection';
+import { changeTerminationProtection } from "./changeTerminationProtection";
 export const enableTerminationProtection = (instanceId: string) => {
-  changeTerminationProtection(instanceId, 'true');
+  changeTerminationProtection(instanceId, "true");
 };
