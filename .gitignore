@@ -1,0 +1,9 @@
+lerna-debug.log
+node_modules
+.serverless
+package-lock.json
+*-debug.log
+*-error.log
+.vscode/
+coverage
+.DS_Store
