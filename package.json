@@ -9,13 +9,15 @@
     "runbook": "lib/index.js"
   },
   "dependencies": {
-    "@types/node": "^12.7.5",
     "aws-sdk": "^2.395.0",
     "inquirer": "^6.2.1",
     "pino": "^5.13.2",
-    "ts-node": "^8.4.1",
-    "typescript": "^3.6.4",
     "yargs": "^12.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^12.11.7",
+    "ts-node": "^8.4.1",
+    "typescript": "^3.6.4"
   },
   "scripts": {
     "build": "tsc",
