@@ -10,11 +10,11 @@ export class disableTerminationProtection extends RunbookStep {
 
     if (currentValue === targetValue) {
       logger.info(
-        `disableTerminationProtection: NO CHANGES. Attribute disableApiTermination is already set to "${currentValue}" for ${instanceId}.`
+        `disableTerminationProtection: NO CHANGES. Attribute disableApiTermination is already set to '${currentValue}' for ${instanceId}.`
       );
     } else {
       logger.info(
-        `disableTerminationProtection: The attribute disableApiTermination will be changed from "${currentValue}" to "${targetValue}" for ${instanceId}.`
+        `disableTerminationProtection: The attribute disableApiTermination will be changed from '${currentValue}' to '${targetValue}' for ${instanceId}.`
       );
     }
   }

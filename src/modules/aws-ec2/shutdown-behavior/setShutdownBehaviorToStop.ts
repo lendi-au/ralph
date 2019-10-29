@@ -10,11 +10,11 @@ export class setShutdownBehaviorToStop extends RunbookStep {
 
     if (currentValue === targetValue) {
       logger.info(
-        `setShutdownBehaviorToTerminate: No changes since the attribute instanceInitiatedShutdownBehavior is already set to "${currentValue}" for ${instanceId}.`
+        `setShutdownBehaviorToTerminate: No changes since the attribute instanceInitiatedShutdownBehavior is already set to '${currentValue}' for ${instanceId}.`
       );
     } else {
       logger.info(
-        `setShutdownBehaviorToTerminate: The attribute instanceInitiatedShutdownBehavior will be changed from "${currentValue}" to "${targetValue}" for ${instanceId}.`
+        `setShutdownBehaviorToTerminate: The attribute instanceInitiatedShutdownBehavior will be changed from '${currentValue}' to '${targetValue}' for ${instanceId}.`
       );
     }
   }
