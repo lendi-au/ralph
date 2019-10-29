@@ -1,14 +1,14 @@
-import { removeIamInstanceProfile } from "../modules/aws-ec2/iam-instance-profile/removeIamInstanceProfile";
-import { setShutdownBehaviorToStop } from "../modules/aws-ec2/shutdown-behavior/setShutdownBehaviorToStop";
-import { enableTerminationProtection } from "../modules/aws-ec2/termination-protection/enableTerminationProtection";
+import { RemoveIamInstanceProfile } from "../modules/aws-ec2/iam-instance-profile/RemoveIamInstanceProfile";
+import { SetShutdownBehaviorToStop } from "../modules/aws-ec2/shutdown-behavior/SetShutdownBehaviorToStop";
+import { EnableTerminationProtection } from "../modules/aws-ec2/termination-protection/EnableTerminationProtection";
 import { identifyInstance } from "../modules/inquiry/inquireEC2Instances";
 import { RunbookStep } from "../modules/RunbookStep";
 import { inquireConfirmationStep } from "../modules/inquiry/inquireConfirmationStep";
 
 export const runbook: Array<RunbookStep> = [
-  new removeIamInstanceProfile(),
-  new setShutdownBehaviorToStop(),
-  new enableTerminationProtection()
+  new RemoveIamInstanceProfile(),
+  new SetShutdownBehaviorToStop(),
+  new EnableTerminationProtection()
 ];
 
 export const handler = async () => {

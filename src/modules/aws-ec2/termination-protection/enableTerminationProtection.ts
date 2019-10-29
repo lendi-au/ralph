@@ -3,7 +3,7 @@ import { RunbookStep } from "../../RunbookStep";
 import { describeTerminationProtection } from "./sub-modules/describeTerminationProtection";
 import { changeTerminationProtection } from "./sub-modules/changeTerminationProtection";
 
-export class enableTerminationProtection extends RunbookStep {
+export class EnableTerminationProtection extends RunbookStep {
   async describeAction(instanceId: string): Promise<void> {
     const currentValue = await describeTerminationProtection(instanceId);
     const targetValue = true;

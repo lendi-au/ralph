@@ -3,7 +3,7 @@ import { RunbookStep } from "../../RunbookStep";
 import { diassociateIamInstanceProfile } from "./sub-modules/diassociateIamInstanceProfile";
 import { describeIamInstanceProfileAssociations } from "./sub-modules/describeIamInstanceProfileAssociations";
 
-export class removeIamInstanceProfile extends RunbookStep {
+export class RemoveIamInstanceProfile extends RunbookStep {
   async describeAction(instanceId: string): Promise<void> {
     const currentValue = await describeIamInstanceProfileAssociations(
       instanceId
