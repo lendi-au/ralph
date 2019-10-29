@@ -9,18 +9,25 @@ export class RemoveIamInstanceProfile extends RunbookStep {
       instanceId
     );
 
+    if (!currentValue.IamInstanceProfileAssociations) {
+      return;
+    }
+
     if (currentValue.IamInstanceProfileAssociations.length !== 0) {
       let profileAssociations = currentValue.IamInstanceProfileAssociations.map(
         IamInstanceProfileAssociations => {
+          if (!IamInstanceProfileAssociations.IamInstanceProfile) {
+            return "";
+          }
           return IamInstanceProfileAssociations.IamInstanceProfile.Arn;
         }
       ).join(", ");
       logger.info(
-        `removeIamInstanceProfile: This will disassociate the following Iam Instance Profiles: ['${profileAssociations}'] for ${instanceId}`
+        `RemoveIamInstanceProfile: This will disassociate the following Iam Instance Profiles: ['${profileAssociations}'] for ${instanceId}`
       );
     } else {
       logger.info(
-        "removeIamInstanceProfile: No changes since there are no Iam Instance Profile Associations to disassociate."
+        "RemoveIamInstanceProfile: No changes since there are no Iam Instance Profile Associations to disassociate."
       );
     }
   }

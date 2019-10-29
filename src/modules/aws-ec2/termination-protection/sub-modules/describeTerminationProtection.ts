@@ -7,5 +7,8 @@ export const describeTerminationProtection = async (instanceId: string) => {
     InstanceId: instanceId
   };
   const value = await ec2.describeInstanceAttribute(params).promise();
+  if (!value.DisableApiTermination) {
+    return;
+  }
   return value.DisableApiTermination.Value;
 };

@@ -23,7 +23,7 @@ export const identifyInstance = async () => {
 export const getInstances = async () => {
   const ec2 = new EC2();
   const response = await ec2.describeInstances().promise();
-  return extractInstanceIds(response.Reservations);
+  return extractInstanceIds(response.Reservations || []);
 };
 
 export const extractInstanceIds = (response: ReservationList) => {

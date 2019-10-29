@@ -1,4 +1,3 @@
-import { EC2 } from "aws-sdk";
 import * as inquirer from "inquirer";
 
 export interface PromptAnswers {
