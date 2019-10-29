@@ -2,6 +2,7 @@
   "name": "rururunbook",
   "description": "rururunbook is a CLI tool that automates security incident response",
   "version": "1.0.0",
+  "license": "MIT",
   "files": [
     "lib"
   ],
@@ -18,13 +19,17 @@
   },
   "devDependencies": {
     "@types/inquirer": "^6.5.0",
+    "@types/jest": "^24.0.20",
     "@types/node": "^12.11.7",
+    "aws-sdk-mock": "^4.5.0",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.1.0",
     "ts-node": "^8.4.1",
     "typescript": "^3.6.4"
   },
   "scripts": {
     "build": "tsc",
-    "cli": "ts-node --files src/index.ts"
-  },
-  "license": "MIT"
+    "cli": "ts-node --files src/index.ts",
+    "test": "jest"
+  }
 }
