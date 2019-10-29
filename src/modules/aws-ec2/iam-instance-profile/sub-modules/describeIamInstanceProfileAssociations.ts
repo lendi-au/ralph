@@ -1,7 +1,5 @@
 import { EC2 } from "aws-sdk";
-export const describeIamInstanceProfileAssociations = async (
-  instanceId: string
-) => {
+export const describeIamInstanceProfileAssociations = (instanceId: string) => {
   const ec2 = new EC2();
   const params = {
     Filters: [
@@ -11,8 +9,5 @@ export const describeIamInstanceProfileAssociations = async (
       }
     ]
   };
-  const responseData = await ec2
-    .describeIamInstanceProfileAssociations(params)
-    .promise();
-  return responseData;
+  return ec2.describeIamInstanceProfileAssociations(params).promise();
 };
