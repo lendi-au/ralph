@@ -4,6 +4,7 @@ import { EnableTerminationProtection } from "../modules/aws-ec2/termination-prot
 import { identifyInstance } from "../modules/inquiry/inquireEC2Instances";
 import { RunbookStep } from "../modules/RunbookStep";
 import { inquireConfirmationStep } from "../modules/inquiry/inquireConfirmationStep";
+import { logger } from "../logger";
 
 export const runbook: Array<RunbookStep> = [
   new RemoveIamInstanceProfile(),
@@ -12,18 +13,22 @@ export const runbook: Array<RunbookStep> = [
 ];
 
 export const handler = async () => {
-  const instanceId = await identifyInstance();
+  try {
+    const instanceId = await identifyInstance();
 
-  for (const step of runbook) {
-    await step.describeAction(instanceId);
-  }
+    for (const step of runbook) {
+      await step.describeAction(instanceId);
+    }
 
-  const proceed = await inquireConfirmationStep();
-  if (!proceed) {
-    return;
-  }
+    const proceed = await inquireConfirmationStep();
+    if (!proceed) {
+      return;
+    }
 
-  for (const step of runbook) {
-    await step.run(instanceId);
+    for (const step of runbook) {
+      await step.run(instanceId);
+    }
+  } catch (error) {
+    logger.error(error);
   }
 };
