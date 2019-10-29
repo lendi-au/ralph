@@ -1,5 +1,5 @@
 import { EC2 } from "aws-sdk";
-import { logger } from "../../../logger";
+import { logger } from "../../../../logger";
 
 export const changeShutdownBehavior = async (
   instanceId: string,
@@ -11,10 +11,6 @@ export const changeShutdownBehavior = async (
     InstanceId: instanceId,
     Value: value
   };
-  try {
-    await ec2.modifyInstanceAttribute(params).promise();
-  } catch (error) {
-    logger.error(error.message);
-  }
+  await ec2.modifyInstanceAttribute(params).promise();
   logger.info(`Changed shutdown behavior to ${value} for ${instanceId}.`);
 };

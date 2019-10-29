@@ -1,5 +1,7 @@
 import { EC2 } from "aws-sdk";
-export const getIamInstanceProfileAssociations = async (instanceId: string) => {
+export const describeIamInstanceProfileAssociations = async (
+  instanceId: string
+) => {
   const ec2 = new EC2();
   const params = {
     Filters: [

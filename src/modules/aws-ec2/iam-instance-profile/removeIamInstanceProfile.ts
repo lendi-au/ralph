@@ -1,24 +1,31 @@
-import { EC2 } from "aws-sdk";
 import { logger } from "../../../logger";
-import { getIamInstanceProfileAssociations } from "./getIamInstanceProfileAssociations";
+import { RunbookStep } from "../../RunbookStep";
+import { diassociateIamInstanceProfile } from "./sub-modules/diassociateIamInstanceProfile";
+import { describeIamInstanceProfileAssociations } from "./sub-modules/describeIamInstanceProfileAssociations";
 
-export const removeIamInstanceProfile = async (instanceId: string) => {
-  const ec2 = new EC2();
-  try {
-    const responseData = await getIamInstanceProfileAssociations(instanceId);
-    if (!responseData.IamInstanceProfileAssociations) {
-      return;
+export class removeIamInstanceProfile extends RunbookStep {
+  async describeAction(instanceId: string): Promise<void> {
+    const currentValue = await describeIamInstanceProfileAssociations(
+      instanceId
+    );
+
+    if (currentValue.IamInstanceProfileAssociations.length !== 0) {
+      let profileAssociations = currentValue.IamInstanceProfileAssociations.map(
+        IamInstanceProfileAssociations => {
+          return IamInstanceProfileAssociations.IamInstanceProfile.Arn;
+        }
+      ).join(", ");
+      logger.info(
+        `removeIamInstanceProfile: This will disassociate the following Iam Instance Profiles: ['${profileAssociations}'] for ${instanceId}`
+      );
+    } else {
+      logger.info(
+        "removeIamInstanceProfile: No changes since there are no Iam Instance Profile Associations to disassociate."
+      );
     }
-    const profileAssociations = responseData.IamInstanceProfileAssociations;
-    profileAssociations.forEach(async association => {
-      const associationId = association.AssociationId || "";
-      const params = {
-        AssociationId: associationId
-      };
-      await ec2.disassociateIamInstanceProfile(params).promise();
-    });
-  } catch (error) {
-    logger.error(error.message);
   }
-  logger.info(`Removed IAM Instance Profile for ${instanceId}.`);
-};
+
+  run(instanceId: string): Promise<void> {
+    return diassociateIamInstanceProfile(instanceId);
+  }
+}
