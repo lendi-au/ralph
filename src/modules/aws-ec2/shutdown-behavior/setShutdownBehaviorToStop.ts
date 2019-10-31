@@ -4,7 +4,7 @@ import { logger } from "../../../logger";
 import { describeShutdownProtection } from "./sub-modules/describeShutdownBehavior";
 
 export class SetShutdownBehaviorToStop extends RunbookStep {
-  targetValue = "stop";
+  readonly targetValue = "stop";
 
   async describeAction(instanceId: string): Promise<void> {
     const currentValue = await describeShutdownProtection(instanceId);

@@ -4,7 +4,7 @@ import { changeTerminationProtection } from "./sub-modules/changeTerminationProt
 import { describeTerminationProtection } from "./sub-modules/describeTerminationProtection";
 
 export class DisableTerminationProtection extends RunbookStep {
-  targetValue = false;
+  readonly targetValue = false;
 
   async describeAction(instanceId: string): Promise<void> {
     const currentValue = await describeTerminationProtection(instanceId);
