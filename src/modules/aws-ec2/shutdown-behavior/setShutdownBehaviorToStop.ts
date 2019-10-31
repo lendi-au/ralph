@@ -4,22 +4,23 @@ import { logger } from "../../../logger";
 import { describeShutdownProtection } from "./sub-modules/describeShutdownBehavior";
 
 export class SetShutdownBehaviorToStop extends RunbookStep {
+  targetValue = "stop";
+
   async describeAction(instanceId: string): Promise<void> {
     const currentValue = await describeShutdownProtection(instanceId);
-    const targetValue = "stop";
 
-    if (currentValue === targetValue) {
+    if (currentValue === this.targetValue) {
       logger.info(
         `setShutdownBehaviorToTerminate: No changes since the attribute instanceInitiatedShutdownBehavior is already set to '${currentValue}' for ${instanceId}.`
       );
     } else {
       logger.info(
-        `setShutdownBehaviorToTerminate: The attribute instanceInitiatedShutdownBehavior will be changed from '${currentValue}' to '${targetValue}' for ${instanceId}.`
+        `setShutdownBehaviorToTerminate: The attribute instanceInitiatedShutdownBehavior will be changed from '${currentValue}' to '${this.targetValue}' for ${instanceId}.`
       );
     }
   }
 
   run(instanceId: string): Promise<void> {
-    return changeShutdownBehavior(instanceId, "stop");
+    return changeShutdownBehavior(instanceId, this.targetValue);
   }
 }
