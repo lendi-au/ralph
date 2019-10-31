@@ -1,5 +1,5 @@
 import { logger } from "../../../logger";
-import { RunbookStep } from "../../RunbookStep";
+import { RunbookStep } from "../../runbook/RunbookStep";
 import { diassociateIamInstanceProfile } from "./sub-modules/diassociateIamInstanceProfile";
 import { describeIamInstanceProfileAssociations } from "./sub-modules/describeIamInstanceProfileAssociations";
 

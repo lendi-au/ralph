@@ -24,3 +24,4 @@ jspm_packages/
 .serverless/
 
 .DS_Store
+lib/

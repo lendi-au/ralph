@@ -1,5 +1,5 @@
 import { logger } from "../../../logger";
-import { RunbookStep } from "../../RunbookStep";
+import { RunbookStep } from "../../runbook/RunbookStep";
 import { describeTerminationProtection } from "./sub-modules/describeTerminationProtection";
 import { changeTerminationProtection } from "./sub-modules/changeTerminationProtection";
 

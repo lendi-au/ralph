@@ -1,5 +1,5 @@
 import { changeShutdownBehavior } from "./sub-modules/changeShutdownBehavior";
-import { RunbookStep } from "../../RunbookStep";
+import { RunbookStep } from "../../runbook/RunbookStep";
 import { logger } from "../../../logger";
 import { describeShutdownProtection } from "./sub-modules/describeShutdownBehavior";
 
