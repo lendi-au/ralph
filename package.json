@@ -1,0 +1,36 @@
+{
+  "name": "ralph",
+  "description": "ralph is a CLI tool that automates security incident response",
+  "version": "1.0.0",
+  "license": "MIT",
+  "files": [
+    "lib"
+  ],
+  "bin": {
+    "runbook": "lib/index.js"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.395.0",
+    "dotenv": "^8.2.0",
+    "inquirer": "^6.2.1",
+    "pino": "^5.13.2",
+    "yargs": "^12.0.2"
+  },
+  "devDependencies": {
+    "@types/yargs": "^13.0.3",
+    "@types/inquirer": "^6.5.0",
+    "@types/jest": "^24.0.20",
+    "@types/node": "^12.11.7",
+    "@types/pino": "^5.8.13",
+    "aws-sdk-mock": "^4.5.0",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.1.0",
+    "ts-node": "^8.4.1",
+    "typescript": "^3.6.4"
+  },
+  "scripts": {
+    "build": "tsc",
+    "cli": "ts-node --files src/index.ts",
+    "test": "jest"
+  }
+}
