@@ -14,10 +14,10 @@ export class RemoveIamInstanceProfile extends RunbookStep {
     }
 
     if (currentValue.IamInstanceProfileAssociations.length !== 0) {
-      let profileAssociations = currentValue.IamInstanceProfileAssociations.map(
+      const profileAssociations = currentValue.IamInstanceProfileAssociations.map(
         IamInstanceProfileAssociations => {
           if (!IamInstanceProfileAssociations.IamInstanceProfile) {
-            return "";
+            return;
           }
           return IamInstanceProfileAssociations.IamInstanceProfile.Arn;
         }
