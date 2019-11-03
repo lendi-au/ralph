@@ -6,7 +6,11 @@ import * as sinon from "sinon";
 AWSMock.setSDKInstance(AWS);
 
 describe("describeTerminationProtection()", () => {
-  it("should call aws-sdk EC2 with the correct params built from instanceId", async () => {
+  afterEach(() => {
+    AWSMock.restore("EC2");
+  });
+
+  it("should call aws-sdk EC2 with the correct params built from instanceId and return termination protection value", async () => {
     const instanceId = "i-1234567890abcdef0";
     const expectedParams = {
       Attribute: "disableApiTermination",
@@ -14,17 +18,45 @@ describe("describeTerminationProtection()", () => {
     };
 
     const describeInstanceAttributeSpy = sinon.stub();
-    describeInstanceAttributeSpy.resolves("");
+    describeInstanceAttributeSpy.resolves({
+      DisableApiTermination: {
+        Value: "stop"
+      }
+    });
     AWSMock.mock(
       "EC2",
       "describeInstanceAttribute",
       describeInstanceAttributeSpy
     );
 
-    await describeTerminationProtection(instanceId);
+    let terminationProtection = await describeTerminationProtection(instanceId);
     expect(describeInstanceAttributeSpy.calledOnceWith(expectedParams)).toBe(
       true
     );
-    AWSMock.restore("EC2");
+    expect(terminationProtection).toEqual("stop");
+  });
+
+  it("should early return if describe has no return value", async () => {
+    const instanceId = "i-1234567890abcdef0";
+    const expectedParams = {
+      Attribute: "disableApiTermination",
+      InstanceId: instanceId
+    };
+
+    const describeInstanceAttributeSpy = sinon.stub();
+    describeInstanceAttributeSpy.resolves({
+      DisableApiTermination: ""
+    });
+    AWSMock.mock(
+      "EC2",
+      "describeInstanceAttribute",
+      describeInstanceAttributeSpy
+    );
+
+    let terminationProtection = await describeTerminationProtection(instanceId);
+    expect(describeInstanceAttributeSpy.calledOnceWith(expectedParams)).toBe(
+      true
+    );
+    expect(terminationProtection).toBeUndefined();
   });
 });
