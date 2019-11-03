@@ -16,21 +16,18 @@ class testRunBook extends RunbookStep {
 
 describe("handler()", () => {
   it("should run all runbooks given right instance ID and user confirmed action", async () => {
-    // Spy on Identify Instance
     const spyIdentifyInstance = jest.spyOn(
       inquireEC2Instances,
       "identifyInstance"
     );
     spyIdentifyInstance.mockReturnValue(Promise.resolve("topher"));
 
-    // Spy on confirmation
     const spyinquireConfirmationStep = jest.spyOn(
       inquireConfirmationStep,
       "inquireConfirmationStep"
     );
     spyinquireConfirmationStep.mockReturnValue(Promise.resolve(true));
 
-    // Use to spy
     const sampleTestRunbook = new testRunBook();
     const spySampleRunbookDescribeAction = jest.spyOn(
       sampleTestRunbook,
@@ -38,7 +35,6 @@ describe("handler()", () => {
     );
     const spySampleRunbookRun = jest.spyOn(sampleTestRunbook, "run");
 
-    // Spy on getRunbookList
     const spyGetRunbookList = jest.spyOn(getRunbookList, "getRunbookList");
     spyGetRunbookList.mockReturnValue([
       sampleTestRunbook,
@@ -57,21 +53,18 @@ describe("handler()", () => {
   });
 
   it("should not execute the runbook if the user did not confirm the action", async () => {
-    // Spy on Identify Instance
     const spyIdentifyInstance = jest.spyOn(
       inquireEC2Instances,
       "identifyInstance"
     );
     spyIdentifyInstance.mockReturnValue(Promise.resolve("topher"));
 
-    // Spy on confirmation
     const spyinquireConfirmationStep = jest.spyOn(
       inquireConfirmationStep,
       "inquireConfirmationStep"
     );
     spyinquireConfirmationStep.mockReturnValue(Promise.resolve(false));
 
-    // Use to spy:
     const sampleTestRunbook = new testRunBook();
     const spySampleRunbookDescribeAction = jest.spyOn(
       sampleTestRunbook,
@@ -79,7 +72,6 @@ describe("handler()", () => {
     );
     const spySampleRunbookRun = jest.spyOn(sampleTestRunbook, "run");
 
-    // Spy on getRunbookList
     const spyGetRunbookList = jest.spyOn(getRunbookList, "getRunbookList");
     spyGetRunbookList.mockReturnValue([
       sampleTestRunbook,
