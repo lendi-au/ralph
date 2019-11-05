@@ -17,8 +17,8 @@ describe("describeTerminationProtection()", () => {
       InstanceId: instanceId
     };
 
-    const describeInstanceAttributeSpy = sinon.stub();
-    describeInstanceAttributeSpy.resolves({
+    const spyDescribeInstanceAttribute = sinon.stub();
+    spyDescribeInstanceAttribute.resolves({
       DisableApiTermination: {
         Value: "stop"
       }
@@ -26,11 +26,11 @@ describe("describeTerminationProtection()", () => {
     AWSMock.mock(
       "EC2",
       "describeInstanceAttribute",
-      describeInstanceAttributeSpy
+      spyDescribeInstanceAttribute
     );
 
     let terminationProtection = await describeTerminationProtection(instanceId);
-    expect(describeInstanceAttributeSpy.calledOnceWith(expectedParams)).toBe(
+    expect(spyDescribeInstanceAttribute.calledOnceWith(expectedParams)).toBe(
       true
     );
     expect(terminationProtection).toEqual("stop");
@@ -43,18 +43,18 @@ describe("describeTerminationProtection()", () => {
       InstanceId: instanceId
     };
 
-    const describeInstanceAttributeSpy = sinon.stub();
-    describeInstanceAttributeSpy.resolves({
+    const spyDescribeInstanceAttribute = sinon.stub();
+    spyDescribeInstanceAttribute.resolves({
       DisableApiTermination: ""
     });
     AWSMock.mock(
       "EC2",
       "describeInstanceAttribute",
-      describeInstanceAttributeSpy
+      spyDescribeInstanceAttribute
     );
 
     let terminationProtection = await describeTerminationProtection(instanceId);
-    expect(describeInstanceAttributeSpy.calledOnceWith(expectedParams)).toBe(
+    expect(spyDescribeInstanceAttribute.calledOnceWith(expectedParams)).toBe(
       true
     );
     expect(terminationProtection).toBeUndefined();

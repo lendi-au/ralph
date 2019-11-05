@@ -17,8 +17,8 @@ describe("describeShutdownProtection()", () => {
       InstanceId: instanceId
     };
 
-    const describeInstanceAttributeSpy = sinon.stub();
-    describeInstanceAttributeSpy.resolves({
+    const spyDescribeInstanceAttribute = sinon.stub();
+    spyDescribeInstanceAttribute.resolves({
       InstanceInitiatedShutdownBehavior: {
         Value: "stop"
       }
@@ -26,12 +26,12 @@ describe("describeShutdownProtection()", () => {
     AWSMock.mock(
       "EC2",
       "describeInstanceAttribute",
-      describeInstanceAttributeSpy
+      spyDescribeInstanceAttribute
     );
 
     let shutdownBehavior = await describeShutdownProtection(instanceId);
 
-    expect(describeInstanceAttributeSpy.calledOnceWith(expectedParams)).toBe(
+    expect(spyDescribeInstanceAttribute.calledOnceWith(expectedParams)).toBe(
       true
     );
     expect(shutdownBehavior).toEqual("stop");
@@ -44,20 +44,20 @@ describe("describeShutdownProtection()", () => {
       InstanceId: instanceId
     };
 
-    const describeInstanceAttributeSpy = sinon.stub();
-    describeInstanceAttributeSpy.resolves({
+    const spyDescribeInstanceAttribute = sinon.stub();
+    spyDescribeInstanceAttribute.resolves({
       InstanceInitiatedShutdownBehavior: ""
     });
 
     AWSMock.mock(
       "EC2",
       "describeInstanceAttribute",
-      describeInstanceAttributeSpy
+      spyDescribeInstanceAttribute
     );
 
     let shutdownBehavior = await describeShutdownProtection(instanceId);
 
-    expect(describeInstanceAttributeSpy.calledOnceWith(expectedParams)).toBe(
+    expect(spyDescribeInstanceAttribute.calledOnceWith(expectedParams)).toBe(
       true
     );
     expect(shutdownBehavior).toBeUndefined();

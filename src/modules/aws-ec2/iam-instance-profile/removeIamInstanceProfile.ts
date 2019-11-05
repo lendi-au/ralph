@@ -9,19 +9,15 @@ export class RemoveIamInstanceProfile extends RunbookStep {
       instanceId
     );
 
-    if (!currentValue.IamInstanceProfileAssociations) {
-      return;
-    }
-
-    if (currentValue.IamInstanceProfileAssociations.length !== 0) {
-      const profileAssociations = currentValue.IamInstanceProfileAssociations.map(
-        IamInstanceProfileAssociations => {
+    if (currentValue && currentValue.length !== 0) {
+      const profileAssociations = currentValue
+        .map(IamInstanceProfileAssociations => {
           if (!IamInstanceProfileAssociations.IamInstanceProfile) {
             return;
           }
           return IamInstanceProfileAssociations.IamInstanceProfile.Arn;
-        }
-      ).join(", ");
+        })
+        .join(", ");
       logger.info(
         `RemoveIamInstanceProfile: This will disassociate the following Iam Instance Profiles: ['${profileAssociations}'] for ${instanceId}`
       );

@@ -17,18 +17,18 @@ describe("describeIamInstanceProfileAssociations()", () => {
       ]
     };
 
-    const describeIamInstanceProfileAssociationsSpy = sinon.stub();
-    describeIamInstanceProfileAssociationsSpy.resolves("");
+    const spyDescribeIamInstanceProfileAssociations = sinon.stub();
+    spyDescribeIamInstanceProfileAssociations.resolves("");
     AWSMock.mock(
       "EC2",
       "describeIamInstanceProfileAssociations",
-      describeIamInstanceProfileAssociationsSpy
+      spyDescribeIamInstanceProfileAssociations
     );
 
     await describeIamInstanceProfileAssociations(instanceId);
 
     expect(
-      describeIamInstanceProfileAssociationsSpy.calledOnceWith(expectedParams)
+      spyDescribeIamInstanceProfileAssociations.calledOnceWith(expectedParams)
     ).toBe(true);
 
     AWSMock.restore("EC2");
