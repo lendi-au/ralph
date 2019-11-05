@@ -1,4 +1,3 @@
-import { logger } from "../../../logger";
 import { RunbookStep } from "../../runbook/RunbookStep";
 import { changeTerminationProtection } from "./sub-modules/changeTerminationProtection";
 import { describeTerminationProtection } from "./sub-modules/describeTerminationProtection";
@@ -6,17 +5,13 @@ import { describeTerminationProtection } from "./sub-modules/describeTermination
 export class DisableTerminationProtection extends RunbookStep {
   readonly targetValue = false;
 
-  async describeAction(instanceId: string): Promise<void> {
+  async describeAction(instanceId: string): Promise<string> {
     const currentValue = await describeTerminationProtection(instanceId);
 
     if (currentValue === this.targetValue) {
-      logger.info(
-        `disableTerminationProtection: NO CHANGES. Attribute disableApiTermination is already set to '${currentValue}' for ${instanceId}.`
-      );
+      return `disableTerminationProtection: No changes since the attribute disableApiTermination is already set to '${currentValue}' for ${instanceId}.`;
     } else {
-      logger.info(
-        `disableTerminationProtection: The attribute disableApiTermination will be changed from '${currentValue}' to '${this.targetValue}' for ${instanceId}.`
-      );
+      return `disableTerminationProtection: The attribute disableApiTermination will be changed from '${currentValue}' to '${this.targetValue}' for ${instanceId}.`;
     }
   }
 

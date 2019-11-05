@@ -9,7 +9,7 @@ export const handler = async () => {
     const runbook = getRunbookList();
 
     for (const step of runbook) {
-      await step.describeAction(instanceId);
+      logger.info(await step.describeAction(instanceId));
     }
 
     const proceed = await inquireConfirmationStep();

@@ -6,8 +6,8 @@ import { RunbookStep } from "../../modules/runbook/RunbookStep";
 import * as sinon from "sinon";
 
 class testRunBook extends RunbookStep {
-  async describeAction(instanceId: string): Promise<void> {
-    return Promise.resolve();
+  async describeAction(instanceId: string): Promise<string> {
+    return Promise.resolve("");
   }
 
   run(instanceId: string): Promise<void> {
