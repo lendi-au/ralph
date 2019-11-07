@@ -12,6 +12,8 @@ jobs:
           node-version: "10.x"
       - name: Build 👷‍♀️
         run: yarn
+      - name: Install 🤖
+        run: yarn build
       # - name: Lint 👮‍♀️
       #   run: yarn lint:format
       - name: Test 🙏
