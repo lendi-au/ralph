@@ -12,7 +12,7 @@ describe("changeTerminationProtection()", () => {
     const expectedParams = {
       Attribute: "disableApiTermination",
       InstanceId: instanceId,
-      Value: targetValue
+      Value: targetValue,
     };
 
     const modifyInstanceAttributeSpy = sinon.stub();
@@ -21,9 +21,7 @@ describe("changeTerminationProtection()", () => {
 
     await changeTerminationProtection(instanceId, targetValue);
 
-    expect(modifyInstanceAttributeSpy.calledOnceWith(expectedParams)).toBe(
-      true
-    );
+    expect(modifyInstanceAttributeSpy.calledOnceWith(expectedParams)).toBe(true);
 
     AWSMock.restore("EC2");
   });

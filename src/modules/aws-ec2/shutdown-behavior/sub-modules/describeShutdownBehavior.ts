@@ -4,7 +4,7 @@ export const describeShutdownProtection = async (instanceId: string) => {
   const ec2 = new EC2();
   const params = {
     Attribute: "instanceInitiatedShutdownBehavior",
-    InstanceId: instanceId
+    InstanceId: instanceId,
   };
   const value = await ec2.describeInstanceAttribute(params).promise();
   if (!value.InstanceInitiatedShutdownBehavior) {

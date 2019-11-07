@@ -11,30 +11,20 @@ describe("EnableTerminationProtection.describeAction()", () => {
     const instanceId = "i-1234567890abcdef0";
     const currentValue = true;
     const expectedOutput = `enableTerminationProtection: No changes since the attribute disableApiTermination is already set to ${currentValue} for ${instanceId}.`;
-    const spyDescribeTerminationProtection = sinon.stub(
-      describeTerminationProtection,
-      "describeTerminationProtection"
-    );
+    const spyDescribeTerminationProtection = sinon.stub(describeTerminationProtection, "describeTerminationProtection");
     spyDescribeTerminationProtection.resolves(currentValue);
     const enableTerminationProtection = new EnableTerminationProtection();
-    const actualOutput = await enableTerminationProtection.describeAction(
-      instanceId
-    );
+    const actualOutput = await enableTerminationProtection.describeAction(instanceId);
     expect(actualOutput).toBe(expectedOutput);
   });
   it("should identify if describeTerminationProtection attribute is set to false", async () => {
     const instanceId = "i-1234567890abcdef0";
     const currentValue = false;
     const expectedOutput = `enableTerminationProtection: The attribute disableApiTermination will be changed from ${currentValue} to true for ${instanceId}.`;
-    const spyDescribeTerminationProtection = sinon.stub(
-      describeTerminationProtection,
-      "describeTerminationProtection"
-    );
+    const spyDescribeTerminationProtection = sinon.stub(describeTerminationProtection, "describeTerminationProtection");
     spyDescribeTerminationProtection.resolves(currentValue);
     const enableTerminationProtection = new EnableTerminationProtection();
-    const actualOutput = await enableTerminationProtection.describeAction(
-      instanceId
-    );
+    const actualOutput = await enableTerminationProtection.describeAction(instanceId);
     expect(actualOutput).toBe(expectedOutput);
   });
 });
@@ -43,10 +33,7 @@ describe("EnableTerminationProtection.run()", () => {
   it("should call changeTerminationProtection(instanceId)", async () => {
     const instanceId = "i-1234567890abcdef0";
     const runbookStep = new EnableTerminationProtection();
-    const spyChangeShutdownBehavior = sinon.stub(
-      changeTerminationProtection,
-      "changeTerminationProtection"
-    );
+    const spyChangeShutdownBehavior = sinon.stub(changeTerminationProtection, "changeTerminationProtection");
     spyChangeShutdownBehavior.resolves();
 
     await runbookStep.run(instanceId); // add with args to all...

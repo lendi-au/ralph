@@ -6,7 +6,7 @@ describe("inquireConfirmationStep()", () => {
   for (const input of ["true", "false"]) {
     test("Inquirer should return right confirmation given ${input}", async () => {
       const spyInquirerPrompt = sinon.stub(inquirer, "prompt").resolves({
-        confirm: input
+        confirm: input,
       });
 
       const confirm = await inquireConfirmationStep();

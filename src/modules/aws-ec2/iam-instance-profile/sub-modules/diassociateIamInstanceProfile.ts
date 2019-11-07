@@ -5,9 +5,7 @@ import { DisassociateIamInstanceProfileRequest } from "aws-sdk/clients/ec2";
 
 export const diassociateIamInstanceProfile = async (instanceId: string) => {
   const ec2 = new EC2();
-  const profileAssociations = await describeIamInstanceProfileAssociations(
-    instanceId
-  );
+  const profileAssociations = await describeIamInstanceProfileAssociations(instanceId);
   if (!profileAssociations) {
     return;
   }
@@ -16,7 +14,7 @@ export const diassociateIamInstanceProfile = async (instanceId: string) => {
       break;
     }
     const params: DisassociateIamInstanceProfileRequest = {
-      AssociationId: profileAssociation.AssociationId
+      AssociationId: profileAssociation.AssociationId,
     };
     await ec2.disassociateIamInstanceProfile(params).promise();
   }

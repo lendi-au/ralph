@@ -13,26 +13,24 @@ describe("RemoveIamInstanceProfile.describeAction()", () => {
     const currentValue = [
       {
         IamInstanceProfile: {
-          Arn: "sample-arn-1"
-        }
+          Arn: "sample-arn-1",
+        },
       },
       {
         IamInstanceProfile: {
-          Arn: "sample-arn-2"
-        }
-      }
+          Arn: "sample-arn-2",
+        },
+      },
     ];
 
     const expectedOutput =
       "RemoveIamInstanceProfile: This will disassociate the following Iam Instance Profiles: ['sample-arn-1, sample-arn-2'] for i-1234567890abcdef0";
     const spyDescribeIamInstanceProfileAssociations = sinon.stub(
       describeIamInstanceProfileAssociations,
-      "describeIamInstanceProfileAssociations"
+      "describeIamInstanceProfileAssociations",
     );
 
-    spyDescribeIamInstanceProfileAssociations
-      .withArgs(instanceId)
-      .resolves(currentValue);
+    spyDescribeIamInstanceProfileAssociations.withArgs(instanceId).resolves(currentValue);
 
     const actualOutput = await runbookStep.describeAction(instanceId);
     expect(spyDescribeIamInstanceProfileAssociations.calledOnce).toBe(true);
@@ -47,7 +45,7 @@ describe("RemoveIamInstanceProfile.describeAction()", () => {
 
     const spyDescribeIamInstanceProfileAssociations = sinon.stub(
       describeIamInstanceProfileAssociations,
-      "describeIamInstanceProfileAssociations"
+      "describeIamInstanceProfileAssociations",
     );
 
     spyDescribeIamInstanceProfileAssociations.withArgs(instanceId).resolves([]);
@@ -64,10 +62,7 @@ describe("RemoveIamInstanceProfile.run()", () => {
     const instanceId = "i-1234567890abcdef0";
     const runbookStep = new RemoveIamInstanceProfile();
 
-    const spyDiassociateIamInstanceProfile = sinon.stub(
-      diassociateIamInstanceProfile,
-      "diassociateIamInstanceProfile"
-    );
+    const spyDiassociateIamInstanceProfile = sinon.stub(diassociateIamInstanceProfile, "diassociateIamInstanceProfile");
     spyDiassociateIamInstanceProfile.resolves();
 
     await runbookStep.run(instanceId);

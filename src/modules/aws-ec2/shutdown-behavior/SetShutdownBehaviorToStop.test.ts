@@ -12,16 +12,11 @@ describe("SetShutdownBehaviorToStop.describeAction()", () => {
     const shutdownProtectionState = "stop";
 
     const expectedOutput = `setShutdownBehaviorToTerminate: No changes since the attribute instanceInitiatedShutdownBehavior is already set to '${shutdownProtectionState}' for ${instanceId}.`;
-    const spyDescribeShutdownProtection = sinon.stub(
-      describeShutdownProtection,
-      "describeShutdownProtection"
-    );
+    const spyDescribeShutdownProtection = sinon.stub(describeShutdownProtection, "describeShutdownProtection");
     spyDescribeShutdownProtection.resolves(shutdownProtectionState);
 
     const setShutdownBehaviorToStop = new SetShutdownBehaviorToStop();
-    const actualOutput = await setShutdownBehaviorToStop.describeAction(
-      instanceId
-    );
+    const actualOutput = await setShutdownBehaviorToStop.describeAction(instanceId);
     expect(actualOutput).toBe(expectedOutput);
   });
 
@@ -29,16 +24,11 @@ describe("SetShutdownBehaviorToStop.describeAction()", () => {
     const instanceId = "i-1234567890abcdef0";
     const shutdownProtectionState = "terminate";
     const expectedOutput = `setShutdownBehaviorToTerminate: The attribute instanceInitiatedShutdownBehavior will be changed from '${shutdownProtectionState}' to 'stop' for ${instanceId}.`;
-    const spyDescribeShutdownProtection = sinon.stub(
-      describeShutdownProtection,
-      "describeShutdownProtection"
-    );
+    const spyDescribeShutdownProtection = sinon.stub(describeShutdownProtection, "describeShutdownProtection");
     spyDescribeShutdownProtection.resolves(shutdownProtectionState);
 
     const setShutdownBehaviorToStop = new SetShutdownBehaviorToStop();
-    const actualOutput = await setShutdownBehaviorToStop.describeAction(
-      instanceId
-    );
+    const actualOutput = await setShutdownBehaviorToStop.describeAction(instanceId);
     expect(actualOutput).toBe(expectedOutput);
   });
 });
@@ -48,10 +38,7 @@ describe("SetShutdownBehaviorToStop.run()", () => {
     const instanceId = "i-1234567890abcdef0";
     const runbookStep = new SetShutdownBehaviorToStop();
 
-    const spyChangeShutdownBehavior = sinon.stub(
-      changeShutdownBehavior,
-      "changeShutdownBehavior"
-    );
+    const spyChangeShutdownBehavior = sinon.stub(changeShutdownBehavior, "changeShutdownBehavior");
     spyChangeShutdownBehavior.resolves();
 
     await runbookStep.run(instanceId);

@@ -10,8 +10,8 @@ export const inquireConfirmationStep = async () => {
       name: "confirm",
       message: "Do you want to proceed with the changes?",
       type: "confirm",
-      default: false
-    }
+      default: false,
+    },
   ]);
 
   return selectedInstance.confirm;

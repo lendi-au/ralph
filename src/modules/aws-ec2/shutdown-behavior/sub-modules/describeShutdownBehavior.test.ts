@@ -14,26 +14,20 @@ describe("describeShutdownProtection()", () => {
     const instanceId = "i-1234567890abcdef0";
     const expectedParams = {
       Attribute: "instanceInitiatedShutdownBehavior",
-      InstanceId: instanceId
+      InstanceId: instanceId,
     };
 
     const spyDescribeInstanceAttribute = sinon.stub();
     spyDescribeInstanceAttribute.resolves({
       InstanceInitiatedShutdownBehavior: {
-        Value: "stop"
-      }
+        Value: "stop",
+      },
     });
-    AWSMock.mock(
-      "EC2",
-      "describeInstanceAttribute",
-      spyDescribeInstanceAttribute
-    );
+    AWSMock.mock("EC2", "describeInstanceAttribute", spyDescribeInstanceAttribute);
 
-    let shutdownBehavior = await describeShutdownProtection(instanceId);
+    const shutdownBehavior = await describeShutdownProtection(instanceId);
 
-    expect(spyDescribeInstanceAttribute.calledOnceWith(expectedParams)).toBe(
-      true
-    );
+    expect(spyDescribeInstanceAttribute.calledOnceWith(expectedParams)).toBe(true);
     expect(shutdownBehavior).toEqual("stop");
   });
 
@@ -41,25 +35,19 @@ describe("describeShutdownProtection()", () => {
     const instanceId = "i-1234567890abcdef0";
     const expectedParams = {
       Attribute: "instanceInitiatedShutdownBehavior",
-      InstanceId: instanceId
+      InstanceId: instanceId,
     };
 
     const spyDescribeInstanceAttribute = sinon.stub();
     spyDescribeInstanceAttribute.resolves({
-      InstanceInitiatedShutdownBehavior: ""
+      InstanceInitiatedShutdownBehavior: "",
     });
 
-    AWSMock.mock(
-      "EC2",
-      "describeInstanceAttribute",
-      spyDescribeInstanceAttribute
-    );
+    AWSMock.mock("EC2", "describeInstanceAttribute", spyDescribeInstanceAttribute);
 
-    let shutdownBehavior = await describeShutdownProtection(instanceId);
+    const shutdownBehavior = await describeShutdownProtection(instanceId);
 
-    expect(spyDescribeInstanceAttribute.calledOnceWith(expectedParams)).toBe(
-      true
-    );
+    expect(spyDescribeInstanceAttribute.calledOnceWith(expectedParams)).toBe(true);
     expect(shutdownBehavior).toBeUndefined();
   });
 });
