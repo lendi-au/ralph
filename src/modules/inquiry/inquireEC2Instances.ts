@@ -6,16 +6,20 @@ export interface PromptAnswers {
   instanceId: string;
 }
 
-export const getInstanceName = (instance: EC2.Instance) => {
-  let instanceName: string | undefined = "";
-  instanceName = instance.InstanceId;
+export interface InstanceIdentifier {
+  name: string;
+  value: string | undefined;
+}
+
+export const getInstanceName = (instance: EC2.Instance): string => {
+  let instanceName: string = instance.InstanceId || "";
   if (instance.KeyName !== undefined) {
     instanceName += ` (${instance.KeyName})`;
   }
   return instanceName;
 };
 
-export const extractInstanceIds = (response: ReservationList) => {
+export const extractInstanceIds = (response: ReservationList): InstanceIdentifier[] => {
   return response
     .map(instanceGroup => {
       if (!instanceGroup.Instances) {
@@ -32,13 +36,13 @@ export const extractInstanceIds = (response: ReservationList) => {
     });
 };
 
-export const getInstances = async () => {
+export const getInstances = async (): Promise<InstanceIdentifier[]> => {
   const ec2 = new EC2();
   const response = await ec2.describeInstances().promise();
   return extractInstanceIds(response.Reservations || []);
 };
 
-export const identifyInstance = async () => {
+export const identifyInstance = async (): Promise<string> => {
   const instances = await getInstances();
   const selectedInstance = await inquirer.prompt<PromptAnswers>([
     {

@@ -1,6 +1,6 @@
 import { EC2 } from "aws-sdk";
 
-export const describeTerminationProtection = async (instanceId: string) => {
+export const describeTerminationProtection = async (instanceId: string): Promise<void | boolean> => {
   const ec2 = new EC2();
   const params = {
     Attribute: "disableApiTermination",

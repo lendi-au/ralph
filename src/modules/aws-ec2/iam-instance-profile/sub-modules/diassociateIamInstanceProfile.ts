@@ -3,7 +3,7 @@ import { describeIamInstanceProfileAssociations } from "./describeIamInstancePro
 import { logger } from "../../../../logger";
 import { DisassociateIamInstanceProfileRequest } from "aws-sdk/clients/ec2";
 
-export const diassociateIamInstanceProfile = async (instanceId: string) => {
+export const diassociateIamInstanceProfile = async (instanceId: string): Promise<void> => {
   const ec2 = new EC2();
   const profileAssociations = await describeIamInstanceProfileAssociations(instanceId);
   if (!profileAssociations) {
