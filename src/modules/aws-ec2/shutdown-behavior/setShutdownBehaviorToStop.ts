@@ -1,22 +1,17 @@
 import { changeShutdownBehavior } from "./sub-modules/changeShutdownBehavior";
-import { RunbookStep } from "../../RunbookStep";
-import { logger } from "../../../logger";
+import { RunbookStep } from "../../runbook/RunbookStep";
 import { describeShutdownProtection } from "./sub-modules/describeShutdownBehavior";
 
 export class SetShutdownBehaviorToStop extends RunbookStep {
   readonly targetValue = "stop";
 
-  async describeAction(instanceId: string): Promise<void> {
+  async describeAction(instanceId: string): Promise<string> {
     const currentValue = await describeShutdownProtection(instanceId);
 
     if (currentValue === this.targetValue) {
-      logger.info(
-        `setShutdownBehaviorToTerminate: No changes since the attribute instanceInitiatedShutdownBehavior is already set to '${currentValue}' for ${instanceId}.`
-      );
+      return `setShutdownBehaviorToTerminate: No changes since the attribute instanceInitiatedShutdownBehavior is already set to '${currentValue}' for ${instanceId}.`;
     } else {
-      logger.info(
-        `setShutdownBehaviorToTerminate: The attribute instanceInitiatedShutdownBehavior will be changed from '${currentValue}' to '${this.targetValue}' for ${instanceId}.`
-      );
+      return `setShutdownBehaviorToTerminate: The attribute instanceInitiatedShutdownBehavior will be changed from '${currentValue}' to '${this.targetValue}' for ${instanceId}.`;
     }
   }
 
