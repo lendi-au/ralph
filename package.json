@@ -1,5 +1,5 @@
 {
-  "name": "ralph",
+  "name": "@lendi-oss/ralph",
   "description": "ralph is a CLI tool that automates security incident response",
   "version": "1.0.1",
   "license": "MIT",
