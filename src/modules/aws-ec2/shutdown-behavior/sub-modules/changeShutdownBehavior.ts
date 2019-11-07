@@ -1,7 +1,7 @@
 import { EC2 } from "aws-sdk";
 import { logger } from "../../../../logger";
 
-export const changeShutdownBehavior = async (instanceId: string, value: string) => {
+export const changeShutdownBehavior = async (instanceId: string, value: string): Promise<void> => {
   const ec2 = new EC2();
   const params = {
     Attribute: "instanceInitiatedShutdownBehavior",

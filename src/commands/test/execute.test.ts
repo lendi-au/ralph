@@ -2,18 +2,8 @@ import { handler } from "../execute";
 import * as inquireEC2Instances from "../../modules/inquiry/inquireEC2Instances";
 import * as inquireConfirmationStep from "../../modules/inquiry/inquireConfirmationStep";
 import * as getRunbookList from "../../modules/runbook/runbookList";
-import { RunbookStep } from "../../modules/runbook/RunbookStep";
 import * as sinon from "sinon";
-
-class TestRunBook extends RunbookStep {
-  async describeAction(instanceId: string): Promise<string> {
-    return Promise.resolve("");
-  }
-
-  run(instanceId: string): Promise<void> {
-    return Promise.resolve();
-  }
-}
+import { RemoveIamInstanceProfile } from "../../modules/aws-ec2/iam-instance-profile/RemoveIamInstanceProfile";
 
 describe("handler()", () => {
   afterEach(() => {
@@ -29,7 +19,7 @@ describe("handler()", () => {
     const spyinquireConfirmationStep = sinon.stub(inquireConfirmationStep, "inquireConfirmationStep");
     spyinquireConfirmationStep.resolves(true);
 
-    const sampleTestRunbook = new TestRunBook();
+    const sampleTestRunbook = new RemoveIamInstanceProfile();
     const spySampleRunbookDescribeAction = sinon.stub(sampleTestRunbook, "describeAction");
     const spySampleRunbookRun = sinon.stub(sampleTestRunbook, "run");
     const spyGetRunbookList = sinon.stub(getRunbookList, "getRunbookList");
@@ -50,7 +40,7 @@ describe("handler()", () => {
     const spyinquireConfirmationStep = sinon.stub(inquireConfirmationStep, "inquireConfirmationStep");
     spyinquireConfirmationStep.resolves(false);
 
-    const sampleTestRunbook = new TestRunBook();
+    const sampleTestRunbook = new RemoveIamInstanceProfile();
     const spySampleRunbookDescribeAction = sinon.stub(sampleTestRunbook, "describeAction");
 
     const spySampleRunbookRun = sinon.stub(sampleTestRunbook, "run");

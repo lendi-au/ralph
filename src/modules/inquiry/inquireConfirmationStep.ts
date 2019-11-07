@@ -4,7 +4,7 @@ export interface PromptAnswers {
   confirm: boolean;
 }
 
-export const inquireConfirmationStep = async () => {
+export const inquireConfirmationStep = async (): Promise<boolean> => {
   const selectedInstance = await inquirer.prompt<PromptAnswers>([
     {
       name: "confirm",

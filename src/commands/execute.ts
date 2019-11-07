@@ -3,7 +3,7 @@ import { inquireConfirmationStep } from "../modules/inquiry/inquireConfirmationS
 import { logger } from "../logger";
 import { getRunbookList } from "../modules/runbook/runbookList";
 
-export const handler = async () => {
+export const handler = async (): Promise<void> => {
   try {
     const instanceId = await identifyInstance();
     const runbook = getRunbookList();

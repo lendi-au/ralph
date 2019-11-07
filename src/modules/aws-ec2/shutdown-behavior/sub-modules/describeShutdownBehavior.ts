@@ -1,6 +1,6 @@
 import { EC2 } from "aws-sdk";
 
-export const describeShutdownProtection = async (instanceId: string) => {
+export const describeShutdownProtection = async (instanceId: string): Promise<void | string> => {
   const ec2 = new EC2();
   const params = {
     Attribute: "instanceInitiatedShutdownBehavior",
