@@ -15,9 +15,9 @@ jobs:
           node-version: "10.x"
           registry-url: https://registry.npmjs.org/
           scope: "@lendi-oss"
-      - name: Build 👷‍♀️
+      - name: Install 🤖
         run: yarn
-      - name: Install
+      - name: Build 👷‍♀️
         run: yarn build
       # - name: Lint 👮‍♀️
       #   run: yarn lint:format

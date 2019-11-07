@@ -10,9 +10,9 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: "10.x"
-      - name: Build 👷‍♀️
-        run: yarn
       - name: Install 🤖
+        run: yarn
+      - name: Build 👷‍♀️
         run: yarn build
       # - name: Lint 👮‍♀️
       #   run: yarn lint:format
