@@ -1,13 +1,13 @@
 {
   "name": "@lendi-oss/ralph",
   "description": "ralph is a CLI tool that automates security incident response",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "files": [
     "lib"
   ],
   "bin": {
-    "runbook": "lib/index.js"
+    "ralph": "lib/index.js"
   },
   "dependencies": {
     "aws-sdk": "^2.395.0",
