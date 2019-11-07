@@ -20,45 +20,39 @@ describe("diassociateIamInstanceProfile()", () => {
         InstanceId: "i-00000000000000000",
         IamInstanceProfile: {
           Arn: "arn:aws:iam::000000000000:instance-profile/sample",
-          Id: "AAAAAAAAAAAAAAAAAAAAA"
+          Id: "AAAAAAAAAAAAAAAAAAAAA",
         },
-        State: "associated"
+        State: "associated",
       },
       {
         AssociationId: "iip-assoc-00000000000000000",
         InstanceId: "i-00000000000000000",
         IamInstanceProfile: {
           Arn: "arn:aws:iam::000000000000:instance-profile/sample",
-          Id: "AAAAAAAAAAAAAAAAAAAAA"
+          Id: "AAAAAAAAAAAAAAAAAAAAA",
         },
-        State: "associated"
+        State: "associated",
       },
       {
         AssociationId: "iip-assoc-00000000000000000",
         InstanceId: "i-00000000000000000",
         IamInstanceProfile: {
           Arn: "arn:aws:iam::000000000000:instance-profile/sample",
-          Id: "AAAAAAAAAAAAAAAAAAAAA"
+          Id: "AAAAAAAAAAAAAAAAAAAAA",
         },
-        State: "associated"
-      }
+        State: "associated",
+      },
     ];
 
     const spyDescribeIamInstanceProfileAssociations = sinon.stub(
       describeIamInstanceProfileAssociations,
-      "describeIamInstanceProfileAssociations"
+      "describeIamInstanceProfileAssociations",
     );
-    spyDescribeIamInstanceProfileAssociations
-      .withArgs(instanceId)
-      .resolves(responseData);
+    spyDescribeIamInstanceProfileAssociations.withArgs(instanceId).resolves(responseData);
 
     const spyDisassociateIamInstanceProfile = sinon.stub();
     spyDisassociateIamInstanceProfile.resolves();
-    AWSMock.mock(
-      "EC2",
-      "disassociateIamInstanceProfile",
-      spyDisassociateIamInstanceProfile
-    );
+    AWSMock.mock("EC2", "disassociateIamInstanceProfile", spyDisassociateIamInstanceProfile);
 
     await diassociateIamInstanceProfile(instanceId);
 
@@ -73,62 +67,56 @@ describe("diassociateIamInstanceProfile()", () => {
         InstanceId: "i-00000000000000000",
         IamInstanceProfile: {
           Arn: "arn:aws:iam::000000000000:instance-profile/sample",
-          Id: "AAAAAAAAAAAAAAAAAAAAA"
+          Id: "AAAAAAAAAAAAAAAAAAAAA",
         },
-        State: "associated"
+        State: "associated",
       },
       {
         AssociationId: "iip-assoc-00000000000000000",
         InstanceId: "i-00000000000000000",
         IamInstanceProfile: {
           Arn: "arn:aws:iam::000000000000:instance-profile/sample",
-          Id: "AAAAAAAAAAAAAAAAAAAAA"
+          Id: "AAAAAAAAAAAAAAAAAAAAA",
         },
-        State: "associated"
+        State: "associated",
       },
       {
         AssociationId: "iip-assoc-00000000000000000",
         InstanceId: "i-00000000000000000",
         IamInstanceProfile: {
           Arn: "arn:aws:iam::000000000000:instance-profile/sample",
-          Id: "AAAAAAAAAAAAAAAAAAAAA"
+          Id: "AAAAAAAAAAAAAAAAAAAAA",
         },
-        State: "associated"
+        State: "associated",
       },
       {
         AssociationId: "",
         InstanceId: "i-00000000000000000",
         IamInstanceProfile: {
           Arn: "arn:aws:iam::000000000000:instance-profile/sample",
-          Id: "AAAAAAAAAAAAAAAAAAAAA"
+          Id: "AAAAAAAAAAAAAAAAAAAAA",
         },
-        State: "associated"
+        State: "associated",
       },
       {
         InstanceId: "i-00000000000000000",
         IamInstanceProfile: {
           Arn: "arn:aws:iam::000000000000:instance-profile/sample",
-          Id: "AAAAAAAAAAAAAAAAAAAAA"
+          Id: "AAAAAAAAAAAAAAAAAAAAA",
         },
-        State: "associated"
-      }
+        State: "associated",
+      },
     ];
 
     const spyDescribeIamInstanceProfileAssociations = sinon.stub(
       describeIamInstanceProfileAssociations,
-      "describeIamInstanceProfileAssociations"
+      "describeIamInstanceProfileAssociations",
     );
-    spyDescribeIamInstanceProfileAssociations
-      .withArgs(instanceId)
-      .resolves(responseData);
+    spyDescribeIamInstanceProfileAssociations.withArgs(instanceId).resolves(responseData);
 
     const spyDisassociateIamInstanceProfile = sinon.stub();
     spyDisassociateIamInstanceProfile.resolves();
-    AWSMock.mock(
-      "EC2",
-      "disassociateIamInstanceProfile",
-      spyDisassociateIamInstanceProfile
-    );
+    AWSMock.mock("EC2", "disassociateIamInstanceProfile", spyDisassociateIamInstanceProfile);
 
     await diassociateIamInstanceProfile(instanceId);
 
@@ -140,17 +128,13 @@ describe("diassociateIamInstanceProfile()", () => {
 
     const spyDescribeIamInstanceProfileAssociations = sinon.stub(
       describeIamInstanceProfileAssociations,
-      "describeIamInstanceProfileAssociations"
+      "describeIamInstanceProfileAssociations",
     );
     spyDescribeIamInstanceProfileAssociations.withArgs(instanceId).resolves([]);
 
     const spyDisassociateIamInstanceProfile = sinon.stub();
     spyDisassociateIamInstanceProfile.resolves();
-    AWSMock.mock(
-      "EC2",
-      "disassociateIamInstanceProfile",
-      spyDisassociateIamInstanceProfile
-    );
+    AWSMock.mock("EC2", "disassociateIamInstanceProfile", spyDisassociateIamInstanceProfile);
 
     await diassociateIamInstanceProfile(instanceId);
 

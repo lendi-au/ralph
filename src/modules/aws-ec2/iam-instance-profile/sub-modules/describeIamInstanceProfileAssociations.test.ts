@@ -12,24 +12,18 @@ describe("describeIamInstanceProfileAssociations()", () => {
       Filters: [
         {
           Name: "instance-id",
-          Values: [instanceId]
-        }
-      ]
+          Values: [instanceId],
+        },
+      ],
     };
 
     const spyDescribeIamInstanceProfileAssociations = sinon.stub();
     spyDescribeIamInstanceProfileAssociations.resolves("");
-    AWSMock.mock(
-      "EC2",
-      "describeIamInstanceProfileAssociations",
-      spyDescribeIamInstanceProfileAssociations
-    );
+    AWSMock.mock("EC2", "describeIamInstanceProfileAssociations", spyDescribeIamInstanceProfileAssociations);
 
     await describeIamInstanceProfileAssociations(instanceId);
 
-    expect(
-      spyDescribeIamInstanceProfileAssociations.calledOnceWith(expectedParams)
-    ).toBe(true);
+    expect(spyDescribeIamInstanceProfileAssociations.calledOnceWith(expectedParams)).toBe(true);
 
     AWSMock.restore("EC2");
   });

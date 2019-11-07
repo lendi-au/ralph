@@ -4,14 +4,9 @@ import { describeIamInstanceProfileAssociations } from "./sub-modules/describeIa
 
 export class RemoveIamInstanceProfile extends RunbookStep {
   async describeAction(instanceId: string): Promise<string> {
-    const iamInstanceProfileAssociations = await describeIamInstanceProfileAssociations(
-      instanceId
-    );
+    const iamInstanceProfileAssociations = await describeIamInstanceProfileAssociations(instanceId);
 
-    if (
-      iamInstanceProfileAssociations &&
-      iamInstanceProfileAssociations.length !== 0
-    ) {
+    if (iamInstanceProfileAssociations && iamInstanceProfileAssociations.length !== 0) {
       const profileAssociations = iamInstanceProfileAssociations
         .map(IamInstanceProfileAssociations => {
           if (!IamInstanceProfileAssociations.IamInstanceProfile) {

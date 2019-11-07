@@ -4,9 +4,5 @@ import { EnableTerminationProtection } from "../aws-ec2/termination-protection/E
 import { RunbookStep } from "./RunbookStep";
 
 export const getRunbookList = (): Array<RunbookStep> => {
-  return [
-    new RemoveIamInstanceProfile(),
-    new SetShutdownBehaviorToStop(),
-    new EnableTerminationProtection()
-  ];
+  return [new RemoveIamInstanceProfile(), new SetShutdownBehaviorToStop(), new EnableTerminationProtection()];
 };

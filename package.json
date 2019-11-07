@@ -23,16 +23,46 @@
     "@types/node": "^12.11.7",
     "@types/pino": "^5.8.13",
     "@types/yargs": "^13.0.3",
+    "@typescript-eslint/eslint-plugin": "^2.6.1",
+    "@typescript-eslint/parser": "^2.6.1",
+    "eslint": "^6.6.0",
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-plugin-prettier": "^3.1.1",
     "aws-sdk-mock": "^4.5.0",
+    "husky": "3.0.9",
     "jest": "^24.9.0",
     "sinon": "^7.5.0",
     "ts-jest": "^24.1.0",
     "ts-node": "^8.4.1",
-    "typescript": "^3.6.4"
+    "typescript": "^3.6.4",
+    "lint-staged": "9.4.2",
+    "prettier": "^1.18.2"
   },
   "scripts": {
     "build": "tsc",
     "cli": "ts-node --files src/index.ts",
+    "fix:other": "yarn prettier --write",
+    "fix:ts": "yarn lint:ts --fix",
+    "fix": "yarn fix:ts && yarn fix:other",
+    "prettier": "prettier \"**/*.{json,md,scss,yaml,yml}\"",
+    "lint:other": "yarn prettier --list-different",
+    "lint:ts": "eslint --ignore-path .gitignore --ignore-path .prettierignore \"**/*.ts\"",
+    "lint": "yarn lint:other && yarn lint:ts",
     "test": "jest"
+  },
+  "lint-staged": {
+    "*.{ts}": [
+      "eslint --fix",
+      "git add"
+    ],
+    "*.{json,md,scss,yaml,yml}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }

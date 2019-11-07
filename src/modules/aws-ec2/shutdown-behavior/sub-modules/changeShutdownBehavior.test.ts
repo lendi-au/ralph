@@ -12,7 +12,7 @@ describe("changeShutdownBehavior()", () => {
     const expectedParams = {
       Attribute: "instanceInitiatedShutdownBehavior",
       InstanceId: instanceId,
-      Value: targetValue
+      Value: targetValue,
     };
 
     const modifyInstanceAttributeSpy = sinon.stub();
@@ -21,9 +21,7 @@ describe("changeShutdownBehavior()", () => {
 
     await changeShutdownBehavior(instanceId, targetValue);
 
-    expect(modifyInstanceAttributeSpy.calledOnceWith(expectedParams)).toBe(
-      true
-    );
+    expect(modifyInstanceAttributeSpy.calledOnceWith(expectedParams)).toBe(true);
 
     AWSMock.restore("EC2");
   });

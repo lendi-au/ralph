@@ -5,7 +5,7 @@ import * as getRunbookList from "../../modules/runbook/runbookList";
 import { RunbookStep } from "../../modules/runbook/RunbookStep";
 import * as sinon from "sinon";
 
-class testRunBook extends RunbookStep {
+class TestRunBook extends RunbookStep {
   async describeAction(instanceId: string): Promise<string> {
     return Promise.resolve("");
   }
@@ -22,74 +22,44 @@ describe("handler()", () => {
 
   it("should run all runbooks given right instance ID and user confirmed action", async () => {
     const instanceId = "i-1234567890abcdef0";
-    const spyIdentifyInstance = sinon.stub(
-      inquireEC2Instances,
-      "identifyInstance"
-    );
+    const spyIdentifyInstance = sinon.stub(inquireEC2Instances, "identifyInstance");
 
     spyIdentifyInstance.resolves(instanceId);
 
-    const spyinquireConfirmationStep = sinon.stub(
-      inquireConfirmationStep,
-      "inquireConfirmationStep"
-    );
+    const spyinquireConfirmationStep = sinon.stub(inquireConfirmationStep, "inquireConfirmationStep");
     spyinquireConfirmationStep.resolves(true);
 
-    const sampleTestRunbook = new testRunBook();
-    const spySampleRunbookDescribeAction = sinon.stub(
-      sampleTestRunbook,
-      "describeAction"
-    );
+    const sampleTestRunbook = new TestRunBook();
+    const spySampleRunbookDescribeAction = sinon.stub(sampleTestRunbook, "describeAction");
     const spySampleRunbookRun = sinon.stub(sampleTestRunbook, "run");
     const spyGetRunbookList = sinon.stub(getRunbookList, "getRunbookList");
 
-    spyGetRunbookList.returns([
-      sampleTestRunbook,
-      sampleTestRunbook,
-      sampleTestRunbook
-    ]);
+    spyGetRunbookList.returns([sampleTestRunbook, sampleTestRunbook, sampleTestRunbook]);
 
     await handler();
 
-    expect(
-      spySampleRunbookDescribeAction.withArgs(instanceId).calledThrice
-    ).toBe(true);
+    expect(spySampleRunbookDescribeAction.withArgs(instanceId).calledThrice).toBe(true);
     expect(spySampleRunbookRun.withArgs(instanceId).calledThrice).toBe(true);
   });
 
   it("should not execute the runbook if the user did not confirm the action", async () => {
     const instanceId = "i-1234567890abcdef0";
-    const spyIdentifyInstance = sinon.stub(
-      inquireEC2Instances,
-      "identifyInstance"
-    );
+    const spyIdentifyInstance = sinon.stub(inquireEC2Instances, "identifyInstance");
     spyIdentifyInstance.resolves(instanceId);
 
-    const spyinquireConfirmationStep = sinon.stub(
-      inquireConfirmationStep,
-      "inquireConfirmationStep"
-    );
+    const spyinquireConfirmationStep = sinon.stub(inquireConfirmationStep, "inquireConfirmationStep");
     spyinquireConfirmationStep.resolves(false);
 
-    const sampleTestRunbook = new testRunBook();
-    const spySampleRunbookDescribeAction = sinon.stub(
-      sampleTestRunbook,
-      "describeAction"
-    );
+    const sampleTestRunbook = new TestRunBook();
+    const spySampleRunbookDescribeAction = sinon.stub(sampleTestRunbook, "describeAction");
 
     const spySampleRunbookRun = sinon.stub(sampleTestRunbook, "run");
     const spyGetRunbookList = sinon.stub(getRunbookList, "getRunbookList");
-    spyGetRunbookList.returns([
-      sampleTestRunbook,
-      sampleTestRunbook,
-      sampleTestRunbook
-    ]);
+    spyGetRunbookList.returns([sampleTestRunbook, sampleTestRunbook, sampleTestRunbook]);
 
     await handler();
 
-    expect(
-      spySampleRunbookDescribeAction.withArgs(instanceId).calledThrice
-    ).toBe(true);
+    expect(spySampleRunbookDescribeAction.withArgs(instanceId).calledThrice).toBe(true);
     expect(spySampleRunbookRun.withArgs(instanceId).notCalled).toBe(true);
   });
 });

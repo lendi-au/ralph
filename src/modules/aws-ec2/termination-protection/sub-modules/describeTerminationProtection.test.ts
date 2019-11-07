@@ -14,25 +14,19 @@ describe("describeTerminationProtection()", () => {
     const instanceId = "i-1234567890abcdef0";
     const expectedParams = {
       Attribute: "disableApiTermination",
-      InstanceId: instanceId
+      InstanceId: instanceId,
     };
 
     const spyDescribeInstanceAttribute = sinon.stub();
     spyDescribeInstanceAttribute.resolves({
       DisableApiTermination: {
-        Value: "stop"
-      }
+        Value: "stop",
+      },
     });
-    AWSMock.mock(
-      "EC2",
-      "describeInstanceAttribute",
-      spyDescribeInstanceAttribute
-    );
+    AWSMock.mock("EC2", "describeInstanceAttribute", spyDescribeInstanceAttribute);
 
-    let terminationProtection = await describeTerminationProtection(instanceId);
-    expect(spyDescribeInstanceAttribute.calledOnceWith(expectedParams)).toBe(
-      true
-    );
+    const terminationProtection = await describeTerminationProtection(instanceId);
+    expect(spyDescribeInstanceAttribute.calledOnceWith(expectedParams)).toBe(true);
     expect(terminationProtection).toEqual("stop");
   });
 
@@ -40,23 +34,17 @@ describe("describeTerminationProtection()", () => {
     const instanceId = "i-1234567890abcdef0";
     const expectedParams = {
       Attribute: "disableApiTermination",
-      InstanceId: instanceId
+      InstanceId: instanceId,
     };
 
     const spyDescribeInstanceAttribute = sinon.stub();
     spyDescribeInstanceAttribute.resolves({
-      DisableApiTermination: ""
+      DisableApiTermination: "",
     });
-    AWSMock.mock(
-      "EC2",
-      "describeInstanceAttribute",
-      spyDescribeInstanceAttribute
-    );
+    AWSMock.mock("EC2", "describeInstanceAttribute", spyDescribeInstanceAttribute);
 
-    let terminationProtection = await describeTerminationProtection(instanceId);
-    expect(spyDescribeInstanceAttribute.calledOnceWith(expectedParams)).toBe(
-      true
-    );
+    const terminationProtection = await describeTerminationProtection(instanceId);
+    expect(spyDescribeInstanceAttribute.calledOnceWith(expectedParams)).toBe(true);
     expect(terminationProtection).toBeUndefined();
   });
 });
