@@ -3,6 +3,16 @@ import { inquireConfirmationStep } from "../modules/inquiry/inquireConfirmationS
 import { logger } from "../logger";
 import { getRunbookList } from "../modules/runbook/runbookList";
 
+const enum Commands {
+  Init = "execute",
+}
+const enum Package {
+  Description = "Run each of the runbooks on selected AWS instance",
+}
+
+export const command = [Commands.Init];
+export const describe = Package.Description;
+
 export const handler = async (): Promise<void> => {
   try {
     const instanceId = await identifyInstance();
