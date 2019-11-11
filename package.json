@@ -41,9 +41,9 @@
   "scripts": {
     "build": "tsc",
     "cli": "ts-node --files src/index.ts",
-    "fix:other": "yarn prettier --write",
-    "fix:ts": "yarn lint:ts --fix",
-    "fix": "yarn fix:ts && yarn fix:other",
+    "lint:fix:other": "yarn prettier --write",
+    "lint:fix:ts": "yarn lint:ts --fix",
+    "lint:fix": "yarn lint:fix:ts && yarn lint:fix:other",
     "prettier": "prettier \"**/*.{json,md,scss,yaml,yml}\"",
     "lint:other": "yarn prettier --list-different",
     "lint:ts": "eslint --ignore-path .gitignore --ignore-path .prettierignore \"**/*.ts\"",
