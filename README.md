@@ -68,17 +68,17 @@ $ ralph execute
 ```lang=bash
 ? Which instance do you want to lock down? i-00000000000000004(vulnerable-instance)
 
-{"level":30,"time":1574209361754,"pid":20037,"hostname":"x1.local","msg":"RemoveIamInstanceProfile: This will disassociate the following Iam Instance Profiles: ['arn:aws:iam::000000000000:instance-profile/SampleIamInstanceProfile'] for i-00000000000000004","v":1}
-{"level":30,"time":1574209361870,"pid":20037,"hostname":"x1.local","msg":"setShutdownBehaviorToTerminate: The attribute instanceInitiatedShutdownBehavior will be changed from 'terminate' to 'stop' for i-00000000000000004.","v":1}
-{"level":30,"time":1574209361987,"pid":20037,"hostname":"x1.local","msg":"enableTerminationProtection: The attribute disableApiTermination will be changed from false to true for i-00000000000000004.","v":1}
+{"level":30,"time":1574209361754,"pid":20037,"hostname":"","msg":"RemoveIamInstanceProfile: This will disassociate the following Iam Instance Profiles: ['arn:aws:iam::000000000000:instance-profile/SampleIamInstanceProfile'] for i-00000000000000004","v":1}
+{"level":30,"time":1574209361870,"pid":20037,"hostname":"","msg":"setShutdownBehaviorToTerminate: The attribute instanceInitiatedShutdownBehavior will be changed from 'terminate' to 'stop' for i-00000000000000004.","v":1}
+{"level":30,"time":1574209361987,"pid":20037,"hostname":"","msg":"enableTerminationProtection: The attribute disableApiTermination will be changed from false to true for i-00000000000000004.","v":1}
 ```
 
 ```
 ? Do you want to proceed with the changes? Yes
 
-{"level":30,"time":1574209377228,"pid":20037,"hostname":"x1.local","msg":"Disassociated IAM Instance Profile for i-00000000000000004.","v":1}
-{"level":30,"time":1574209377413,"pid":20037,"hostname":"x1.local","msg":"Changed shutdown behavior to stop for i-00000000000000004.","v":1}
-{"level":30,"time":1574209377547,"pid":20037,"hostname":"x1.local","msg":"Changed termination protection to true for i-00000000000000004.","v":1}
+{"level":30,"time":1574209377228,"pid":20037,"hostname":"","msg":"Disassociated IAM Instance Profile for i-00000000000000004.","v":1}
+{"level":30,"time":1574209377413,"pid":20037,"hostname":"","msg":"Changed shutdown behavior to stop for i-00000000000000004.","v":1}
+{"level":30,"time":1574209377547,"pid":20037,"hostname":"","msg":"Changed termination protection to true for i-00000000000000004.","v":1}
 ```
 
 ## Upcoming Features
