@@ -1,6 +1,6 @@
 # Ralph
 
-![](https://github.com/lendi-au/Ralph/workflows/Build/badge.svg)
+![GH workflow build badge](https://github.com/lendi-au/Ralph/workflows/Build/badge.svg)
 
 Ralph is a CLI tool that automates security incident response for AWS resources.
 
@@ -13,17 +13,11 @@ Ralph loads and executes a collection of pre-defined runbook to automate inciden
 
 ### EC2 Runbooks
 
-1. Removing IAM Instance Profile
+1. Removing IAM Instance Profile - Detaches the current IAM Instance Profile of an instance.
 
-- Detaches the current IAM Instance Profile of an instance.
+2. Enable Termination Protection - Enables termination protection for an instance. This gives an extra step to prevent accidental termination of an instance.
 
-2. Enable Termination Protection
-
-- Enables termination protection for an instance. This gives an extra step to prevent accidental termination of an instance.
-
-3. Set Shutdown Behavior to Stop
-
-- Setting shutdown behavior to stop guarantees that the shutting down the instance will not result to termination of the instance.
+3. Set Shutdown Behavior to Stop - Setting shutdown behavior to stop guarantees that the shutting down the instance will not result to termination of the instance.
 
 ## Installation
 
@@ -31,9 +25,12 @@ To install Ralph using NPM, run:
 
 ```lang=bash
 $ npm i @lendi-oss/ralph
+/usr/local/bin/ralph -> /usr/local/lib/node_modules/@lendi-oss/ralph/lib/index.js
++ @lendi-oss/ralph@1.0.3
+added 125 packages from 126 contributors in 7.843s
 ```
 
-See https://www.npmjs.com/package/@lendi-oss/ralph.
+See <https://www.npmjs.com/package/@lendi-oss/ralph>.
 
 ## Setup
 
@@ -41,8 +38,9 @@ See https://www.npmjs.com/package/@lendi-oss/ralph.
 
 - Add AWS_REGION in your environment variables. Here's an example with AWS_REGION set to "ap-southeast-2":
 
-```
+```lang=bash
 $ export AWS_REGION="ap-southeast-2"
+...
 ```
 
 ## Usage
@@ -73,7 +71,7 @@ $ ralph execute
 {"level":30,"time":1574209361987,"pid":20037,"hostname":"","msg":"enableTerminationProtection: The attribute disableApiTermination will be changed from false to true for i-00000000000000004.","v":1}
 ```
 
-```
+```lang=bash
 ? Do you want to proceed with the changes? Yes
 
 {"level":30,"time":1574209377228,"pid":20037,"hostname":"","msg":"Disassociated IAM Instance Profile for i-00000000000000004.","v":1}
