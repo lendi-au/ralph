@@ -9,15 +9,19 @@ It's the tool you use when this happens:
 
 ## Features
 
-Ralph loads and executes a collection of pre-defined runbook to automate incident response.
+Ralph loads and executes a collection of pre-defined runbook to
+automate incident response.
 
 ### EC2 Runbooks
 
-1. Removing IAM Instance Profile - Detaches the current IAM Instance Profile of an instance.
+1. Removing IAM Instance Profile - Detaches the current IAM Instance
+   Profile of an instance.
 
-2. Enable Termination Protection - Enables termination protection for an instance. This gives an extra step to prevent accidental termination of an instance.
+2. Enable Termination Protection - Enables termination protection for an instance.
+   This gives an extra step to prevent accidental termination of an instance.
 
-3. Set Shutdown Behavior to Stop - Setting shutdown behavior to stop guarantees that the shutting down the instance will not result to termination of the instance.
+3. Set Shutdown Behavior to Stop - Setting shutdown behavior to stop guarantees
+   that the shutting down the instance will not result to termination of the instance.
 
 ## Installation
 
@@ -36,7 +40,8 @@ See <https://www.npmjs.com/package/@lendi/ralph>.
 
 - Setup your AWS credentials (`~/.aws/credentials`) by following this [guide](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html).
 
-- Add AWS_REGION in your environment variables. Here's an example with AWS_REGION set to "ap-southeast-2":
+- Add AWS_REGION in your environment variables.
+  Here's an example with AWS_REGION set to "ap-southeast-2":
 
 ```lang=bash
 $ export AWS_REGION="ap-southeast-2"
@@ -66,17 +71,27 @@ $ ralph execute
 ```lang=bash
 ? Which instance do you want to lock down? i-00000000000000004(vulnerable-instance)
 
-{"level":30,"time":1574209361754,"pid":20037,"hostname":"","msg":"RemoveIamInstanceProfile: This will disassociate the following Iam Instance Profiles: ['arn:aws:iam::000000000000:instance-profile/SampleIamInstanceProfile'] for i-00000000000000004","v":1}
-{"level":30,"time":1574209361870,"pid":20037,"hostname":"","msg":"setShutdownBehaviorToTerminate: The attribute instanceInitiatedShutdownBehavior will be changed from 'terminate' to 'stop' for i-00000000000000004.","v":1}
-{"level":30,"time":1574209361987,"pid":20037,"hostname":"","msg":"enableTerminationProtection: The attribute disableApiTermination will be changed from false to true for i-00000000000000004.","v":1}
+{"level":30,"time":1574209361754,"pid":20037,"hostname":"",
+"msg":"RemoveIamInstanceProfile: This will disassociate the following Iam Instance
+Profiles: ['arn:aws:iam::000000000000:instance-profile/SampleIamInstanceProfile']
+for i-00000000000000004","v":1}
+{"level":30,"time":1574209361870,"pid":20037,"hostname":"",
+"msg":"setShutdownBehaviorToTerminate: The attribute instanceInitiatedShutdownBehavior
+will be changed from 'terminate' to 'stop' for i-00000000000000004.","v":1}
+{"level":30,"time":1574209361987,"pid":20037,"hostname":"",
+"msg":"enableTerminationProtection: The attribute disableApiTermination will be changed
+from false to true for i-00000000000000004.","v":1}
 ```
 
 ```lang=bash
 ? Do you want to proceed with the changes? Yes
 
-{"level":30,"time":1574209377228,"pid":20037,"hostname":"","msg":"Disassociated IAM Instance Profile for i-00000000000000004.","v":1}
-{"level":30,"time":1574209377413,"pid":20037,"hostname":"","msg":"Changed shutdown behavior to stop for i-00000000000000004.","v":1}
-{"level":30,"time":1574209377547,"pid":20037,"hostname":"","msg":"Changed termination protection to true for i-00000000000000004.","v":1}
+{"level":30,"time":1574209377228,"pid":20037,"hostname":"","msg":"Disassociated IAM
+Instance Profile for i-00000000000000004.","v":1}
+{"level":30,"time":1574209377413,"pid":20037,"hostname":"","msg":"Changed shutdown
+behavior to stop for i-00000000000000004.","v":1}
+{"level":30,"time":1574209377547,"pid":20037,"hostname":"","msg":"Changed termination
+protection to true for i-00000000000000004.","v":1}
 ```
 
 ## Upcoming Features
