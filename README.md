@@ -24,13 +24,13 @@ Ralph loads and executes a collection of pre-defined runbook to automate inciden
 To install Ralph using NPM, run:
 
 ```lang=bash
-$ npm i @lendi-oss/ralph
-/usr/local/bin/ralph -> /usr/local/lib/node_modules/@lendi-oss/ralph/lib/index.js
-+ @lendi-oss/ralph@1.0.3
+$ npm i @lendi/ralph
+/usr/local/bin/ralph -> /usr/local/lib/node_modules/@lendi/ralph/lib/index.js
++ @lendi/ralph@1.0.3
 added 125 packages from 126 contributors in 7.843s
 ```
 
-See <https://www.npmjs.com/package/@lendi-oss/ralph>.
+See <https://www.npmjs.com/package/@lendi/ralph>.
 
 ## Setup
 
