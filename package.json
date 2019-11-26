@@ -37,17 +37,18 @@
     "ts-jest": "^24.1.0",
     "ts-node": "^8.4.1",
     "typescript": "^3.6.4",
-    "markdownlint": "^0.17.2"
+    "markdownlint-cli": "^0.19.0"
   },
   "scripts": {
     "build": "tsc",
     "cli": "ts-node --files src/index.ts",
     "lint:fix:other": "yarn prettier --write",
     "lint:fix:ts": "yarn lint:ts --fix",
-    "lint:fix": "yarn lint:fix:ts && yarn lint:fix:other",
+    "lint:fix:md": "markdownlint '**/*.md' --ignore node_modules --fix",
+    "lint:fix": "yarn lint:fix:ts && yarn lint:fix:other && yarn lint:fix:md",
     "prettier": "prettier \"**/*.{json,scss,yaml,yml}\"",
     "lint:other": "yarn prettier --list-different",
-    "lint:md": "markdownlint  -i '**/node_modules/**' **/*.md",
+    "lint:md": "markdownlint '**/*.md' --ignore node_modules",
     "lint:ts": "eslint --ignore-path .gitignore --ignore-path .prettierignore \"**/*.ts\"",
     "lint": "yarn lint:other && yarn lint:ts && yarn lint:md",
     "test": "jest"
@@ -62,7 +63,7 @@
       "git add"
     ],
     "*.{md}": [
-      "yarn lint:md",
+      "markdownlint '**/*.md' --ignore node_modules --fix",
       "git add"
     ]
   },
