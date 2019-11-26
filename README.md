@@ -71,9 +71,8 @@ $ ralph execute
 ```lang=bash
 ? Which instance do you want to lock down? i-00000000000000004(vulnerable-instance)
 
-{"level":30,"time":1574209361754,"pid":20037,"hostname":"",
-"msg":"RemoveIamInstanceProfile: This will disassociate the following Iam Instance
-Profiles: ['arn:aws:iam::000000000000:instance-profile/SampleIamInstanceProfile']
+{"level":30,"time":1574209361754,"pid":20037,"hostname":"","msg":"RemoveIamInstanceProfile:
+This will disassociate the following Iam Instance Profiles: ['arn:aws:iam::000000000000:instance-profile/SampleIamInstanceProfile']
 for i-00000000000000004","v":1}
 {"level":30,"time":1574209361870,"pid":20037,"hostname":"",
 "msg":"setShutdownBehaviorToTerminate: The attribute instanceInitiatedShutdownBehavior
