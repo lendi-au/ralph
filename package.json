@@ -1,7 +1,7 @@
 {
   "name": "@lendi/ralph",
   "description": "ralph is a CLI tool that automates security incident response",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "license": "MIT",
   "files": [
     "lib"
