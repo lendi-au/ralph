@@ -19,24 +19,25 @@
   "devDependencies": {
     "@types/inquirer": "^6.5.0",
     "@types/jest": "^24.0.20",
-    "@types/sinon": "^7.5.0",
     "@types/node": "^12.11.7",
     "@types/pino": "^5.8.13",
+    "@types/sinon": "^7.5.0",
     "@types/yargs": "^13.0.3",
     "@typescript-eslint/eslint-plugin": "^2.6.1",
     "@typescript-eslint/parser": "^2.6.1",
+    "aws-sdk-mock": "^4.5.0",
     "eslint": "^6.6.0",
     "eslint-config-prettier": "^6.5.0",
     "eslint-plugin-prettier": "^3.1.1",
-    "aws-sdk-mock": "^4.5.0",
     "husky": "3.0.9",
     "jest": "^24.9.0",
+    "lint-staged": "9.4.2",
+    "prettier": "^1.18.2",
     "sinon": "^7.5.0",
     "ts-jest": "^24.1.0",
     "ts-node": "^8.4.1",
     "typescript": "^3.6.4",
-    "lint-staged": "9.4.2",
-    "prettier": "^1.18.2"
+    "markdownlint": "^0.17.2"
   },
   "scripts": {
     "build": "tsc",
@@ -44,10 +45,11 @@
     "lint:fix:other": "yarn prettier --write",
     "lint:fix:ts": "yarn lint:ts --fix",
     "lint:fix": "yarn lint:fix:ts && yarn lint:fix:other",
-    "prettier": "prettier \"**/*.{json,md,scss,yaml,yml}\"",
+    "prettier": "prettier \"**/*.{json,scss,yaml,yml}\"",
     "lint:other": "yarn prettier --list-different",
+    "lint:md": "markdownlint  -i '**/node_modules/**' **/*.md",
     "lint:ts": "eslint --ignore-path .gitignore --ignore-path .prettierignore \"**/*.ts\"",
-    "lint": "yarn lint:other && yarn lint:ts",
+    "lint": "yarn lint:other && yarn lint:ts && yarn lint:md",
     "test": "jest"
   },
   "lint-staged": {
@@ -55,8 +57,12 @@
       "eslint --fix",
       "git add"
     ],
-    "*.{json,md,scss,yaml,yml}": [
+    "*.{json,scss,yaml,yml}": [
       "prettier --write",
+      "git add"
+    ],
+    "*.{md}": [
+      "yarn lint:md",
       "git add"
     ]
   },
