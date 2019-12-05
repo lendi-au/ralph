@@ -1,6 +1,7 @@
 import { EC2 } from "aws-sdk";
 import { EbsConfig } from "../config/EbsConfig";
 import { buildCopySnapshotDescription } from "./buildCopySnapshotDescription";
+import { logger } from "../../../../logger";
 
 export const copySnapshotToTargetRegion = async (config: EbsConfig, snapshotId: string): Promise<string> => {
   const ec2 = new EC2({ region: config.targetAwsRegion });
@@ -9,10 +10,11 @@ export const copySnapshotToTargetRegion = async (config: EbsConfig, snapshotId: 
     SourceRegion: config.sourceAwsRegion,
     SourceSnapshotId: snapshotId,
   };
-  const result = await ec2.copySnapshot(params).promise();
 
+  const result = await ec2.copySnapshot(params).promise();
   if (!result.SnapshotId) {
     throw new Error("Copied snapshot did not return a SnapshotId");
   }
+  logger.info(`Copied snapshot ${snapshotId} to region ${config.targetAwsRegion}: ${result.SnapshotId}`);
   return result.SnapshotId;
 };

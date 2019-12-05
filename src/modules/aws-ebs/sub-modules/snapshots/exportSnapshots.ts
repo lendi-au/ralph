@@ -6,6 +6,7 @@ import { shareSnapshot } from "./shareSnapshot";
 import { isSnapshotInTargetRegion } from "./isSnapshotInTargetRegion";
 import { waitForSnapshotCompletion } from "./waitForSnapshotCompletion";
 import { describeVolumes } from "../volumes/describeVolumes";
+import { logger } from "../../../../logger";
 
 export const exportSnapshotToTargetAwsAccount = async (
   config: EbsConfig,
@@ -19,7 +20,9 @@ export const exportSnapshotToTargetAwsAccount = async (
     snapshot = await copySnapshotToTargetRegion(config, snapshot);
   }
 
-  await shareSnapshot(config, snapshot);
+  if (config.targetAwsAccounts) {
+    await shareSnapshot(config, snapshot);
+  }
 };
 
 export const exportSnapshotsToTargetAwsAccount = async (
@@ -44,5 +47,6 @@ export const exportSnapshotsFromVolumes = async (config: EbsConfig, volumes: str
 
 export const exportSnapshotsFromInstance = async (config: EbsConfig, instanceId: string): Promise<void> => {
   const volumes = await describeVolumes(instanceId);
+  logger.info(`Exporting snapshots from instance: ${instanceId}`);
   await exportSnapshotsFromVolumes(config, volumes);
 };

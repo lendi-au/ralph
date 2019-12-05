@@ -2,6 +2,7 @@ import { Presets, Bar } from "cli-progress";
 import { isSnapshotInCompletedState } from "./isSnapshotInCompletedState";
 import { checkSnapshotProgress } from "./checkSnapshotProgress";
 import { extractSnapshotProgress } from "./extractSnapshotProgress";
+import { logger } from "../../../../logger";
 
 export const sleep = async (timer: number): Promise<void> => {
   return new Promise(resolve => setTimeout(resolve, timer));
@@ -9,7 +10,8 @@ export const sleep = async (timer: number): Promise<void> => {
 
 export const waitForSnapshotCompletion = async (SnapshotId: string): Promise<void> => {
   let snapshotProgress = await checkSnapshotProgress(SnapshotId);
-  // console.log(`Size: ${snapshotProgress.volumeSize} GiB`);
+
+  logger.info(`Creating ${SnapshotId} (Size: ${snapshotProgress.volumeSize} GiB):`);
   const progressBar = new Bar({}, Presets.shades_classic);
   progressBar.start(100, 0);
   while (!isSnapshotInCompletedState(snapshotProgress.state)) {
