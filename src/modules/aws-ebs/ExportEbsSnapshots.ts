@@ -1,6 +1,6 @@
 import { RunbookStep } from "../runbook/RunbookStep";
 import { describeExportEbsSnapshotsPlan } from "./sub-modules/snapshots/describeExportEbsSnapshotsPlan";
-import { loadEbsConfig } from "./sub-modules/loadEbsConfig";
+import { loadEbsConfig } from "./sub-modules/config/loadEbsConfig";
 import { exportSnapshotsFromInstance } from "./sub-modules/snapshots/exportSnapshots";
 
 export class ExportEbsSnapshots extends RunbookStep {

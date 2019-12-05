@@ -1,5 +1,5 @@
 import { EC2 } from "aws-sdk";
-import { EbsConfig } from "../loadEbsConfig";
+import { EbsConfig } from "../config/EbsConfig";
 
 export const shareSnapshot = async (config: EbsConfig, snapshotId: string): Promise<void> => {
   const params = {
