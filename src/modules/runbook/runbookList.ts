@@ -1,8 +1,14 @@
-import { RemoveIamInstanceProfile } from "../aws-ec2/iam-instance-profile/RemoveIamInstanceProfile";
-import { SetShutdownBehaviorToStop } from "../aws-ec2/shutdown-behavior/SetShutdownBehaviorToStop";
-import { EnableTerminationProtection } from "../aws-ec2/termination-protection/EnableTerminationProtection";
+// import { RemoveIamInstanceProfile } from "../aws-ec2/iam-instance-profile/RemoveIamInstanceProfile";
+// import { SetShutdownBehaviorToStop } from "../aws-ec2/shutdown-behavior/SetShutdownBehaviorToStop";
+// import { EnableTerminationProtection } from "../aws-ec2/termination-protection/EnableTerminationProtection";
 import { RunbookStep } from "./RunbookStep";
+import { ExportEbsSnapshots } from "../aws-ebs/ExportEbsSnapshots";
 
 export const getRunbookList = (): Array<RunbookStep> => {
-  return [new RemoveIamInstanceProfile(), new SetShutdownBehaviorToStop(), new EnableTerminationProtection()];
+  return [
+    // new RemoveIamInstanceProfile(),
+    // new SetShutdownBehaviorToStop(),
+    // new EnableTerminationProtection(),
+    new ExportEbsSnapshots(),
+  ];
 };
