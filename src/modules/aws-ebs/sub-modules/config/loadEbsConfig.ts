@@ -1,3 +1,5 @@
+import { EbsConfig } from "./EbsConfig";
+
 export const loadEbsConfig = (): EbsConfig => {
   const sourceAwsRegion = process.env.sourceAwsRegion || "";
   const targetAwsRegion = process.env.targetAwsRegion || "";
@@ -11,10 +13,3 @@ export const loadEbsConfig = (): EbsConfig => {
     transferAllSnapshots,
   };
 };
-
-export interface EbsConfig {
-  sourceAwsRegion: string;
-  targetAwsRegion: string;
-  targetAwsAccounts: string[];
-  transferAllSnapshots: boolean;
-}

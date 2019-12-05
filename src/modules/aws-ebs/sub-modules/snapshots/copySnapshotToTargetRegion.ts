@@ -1,5 +1,5 @@
 import { EC2 } from "aws-sdk";
-import { EbsConfig } from "../loadEbsConfig";
+import { EbsConfig } from "../config/EbsConfig";
 import { buildCopySnapshotDescription } from "./buildCopySnapshotDescription";
 
 export const copySnapshotToTargetRegion = async (config: EbsConfig, snapshotId: string): Promise<string> => {

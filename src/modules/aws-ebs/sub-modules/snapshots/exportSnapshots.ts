@@ -1,4 +1,4 @@
-import { EbsConfig } from "../loadEbsConfig";
+import { EbsConfig } from "../config/EbsConfig";
 import { describeSnapshotIds } from "./describeSnapshots";
 import { createSnapshot } from "./createSnapshot";
 import { copySnapshotToTargetRegion } from "./copySnapshotToTargetRegion";

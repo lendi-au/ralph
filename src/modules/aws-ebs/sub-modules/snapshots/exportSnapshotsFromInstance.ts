@@ -1,4 +1,4 @@
-import { EbsConfig } from "../loadEbsConfig";
+import { EbsConfig } from "../config/EbsConfig";
 import { describeVolumes } from "../volumes/describeVolumes";
 import { exportSnapshotsFromVolumes } from "./exportSnapshots";
 
