@@ -2,18 +2,21 @@ import { identifyInstance } from "../modules/inquiry/inquireEC2Instances";
 import { inquireConfirmationStep } from "../modules/inquiry/inquireConfirmationStep";
 import { logger } from "../logger";
 import { getRunbookList } from "../modules/runbook/runbookList";
+import { config } from "dotenv";
 
 const enum Commands {
-  Init = "execute",
+  Execute = "execute",
 }
 const enum Package {
   Description = "Run each of the runbooks on selected AWS instance",
 }
 
-export const command = [Commands.Init];
+export const command = [Commands.Execute];
 export const describe = Package.Description;
 
 export const handler = async (): Promise<void> => {
+  config();
+
   try {
     const instanceId = await identifyInstance();
     const runbook = getRunbookList();
