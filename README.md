@@ -48,6 +48,17 @@ $ export AWS_REGION="ap-southeast-2"
 ...
 ```
 
+- Required environment variables.
+  Some runbooks require you to define certain env variables.
+
+EBS Snapshot export runbook:
+
+```lang=bash
+export QUARANTINE_AWS_REGION="ap-southeast-1"
+export QUARANTINE_AWS_ACCOUNTS="0000,0001,0002"
+export TRANSFER_ALL_SNAPSHOTS="false"
+```
+
 ## Usage
 
 ### `execute` command

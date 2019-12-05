@@ -7,7 +7,7 @@ export class ExportEbsSnapshots extends RunbookStep {
   ebsConfig = loadEbsConfig();
 
   async describeAction(instanceId: string): Promise<string> {
-    return describeExportEbsSnapshotsPlan(this.ebsConfig.targetAwsAccounts, this.ebsConfig.targetAwsRegion, instanceId);
+    return describeExportEbsSnapshotsPlan(this.ebsConfig, instanceId);
   }
 
   async run(instanceId: string): Promise<void> {

@@ -1,5 +1,6 @@
 import { EC2 } from "aws-sdk";
 import { EbsConfig } from "../config/EbsConfig";
+import { logger } from "../../../../logger";
 
 export const shareSnapshot = async (config: EbsConfig, snapshotId: string): Promise<void> => {
   const params = {
@@ -9,6 +10,7 @@ export const shareSnapshot = async (config: EbsConfig, snapshotId: string): Prom
     UserIds: config.targetAwsAccounts,
   };
 
+  logger.info(`Sharing snapshot ${snapshotId} to ${config.targetAwsAccounts}`);
   const ec2 = new EC2({ region: config.targetAwsRegion });
   await ec2.modifySnapshotAttribute(params).promise();
 };
