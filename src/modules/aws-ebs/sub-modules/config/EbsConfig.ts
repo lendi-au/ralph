@@ -1,6 +1,6 @@
 export interface EbsConfig {
   sourceAwsRegion: string;
-  targetAwsRegion: string;
-  targetAwsAccounts: string[];
+  quarantineAwsRegion: string;
+  quarantineAwsAccounts: string[];
   transferAllSnapshots: boolean;
 }

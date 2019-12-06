@@ -4,8 +4,8 @@ describe("buildCopySnapshotDescription()", () => {
   it("should return correct format", () => {
     const snapshotId = "snap-00000000";
     const ebsConfig = {
-      targetAwsRegion: "ap-southeast-2",
-      targetAwsAccounts: ["00000000"],
+      quarantineAwsRegion: "ap-southeast-2",
+      quarantineAwsAccounts: ["00000000"],
       transferAllSnapshots: false,
       sourceAwsRegion: "ap-southeast-2",
     };

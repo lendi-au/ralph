@@ -7,10 +7,10 @@ export const shareSnapshot = async (config: EbsConfig, snapshotId: string): Prom
     SnapshotId: snapshotId,
     Attribute: "createVolumePermission",
     OperationType: "add",
-    UserIds: config.targetAwsAccounts,
+    UserIds: config.quarantineAwsAccounts,
   };
 
-  logger.info(`Sharing snapshot ${snapshotId} to ${config.targetAwsAccounts}`);
-  const ec2 = new EC2({ region: config.targetAwsRegion });
+  logger.info(`Sharing snapshot ${snapshotId} to ${config.quarantineAwsAccounts}`);
+  const ec2 = new EC2({ region: config.quarantineAwsRegion });
   await ec2.modifySnapshotAttribute(params).promise();
 };
