@@ -4,7 +4,7 @@ import { buildCopySnapshotDescription } from "./buildCopySnapshotDescription";
 import { logger } from "../../../../logger";
 
 export const copySnapshotToTargetRegion = async (config: EbsConfig, snapshotId: string): Promise<string> => {
-  const ec2 = new EC2({ region: config.targetAwsRegion });
+  const ec2 = new EC2({ region: config.quarantineAwsRegion });
   const params = {
     Description: buildCopySnapshotDescription(config, snapshotId),
     SourceRegion: config.sourceAwsRegion,
@@ -15,6 +15,6 @@ export const copySnapshotToTargetRegion = async (config: EbsConfig, snapshotId: 
   if (!result.SnapshotId) {
     throw new Error("Copied snapshot did not return a SnapshotId");
   }
-  logger.info(`Copied snapshot ${snapshotId} to region ${config.targetAwsRegion}: ${result.SnapshotId}`);
+  logger.info(`Copied snapshot ${snapshotId} to region ${config.quarantineAwsRegion}: ${result.SnapshotId}`);
   return result.SnapshotId;
 };
