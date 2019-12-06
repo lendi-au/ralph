@@ -3,7 +3,7 @@ import { describeSnapshotIds } from "./describeSnapshots";
 import { createSnapshot } from "./createSnapshot";
 import { copySnapshotToTargetRegion } from "./copySnapshotToTargetRegion";
 import { shareSnapshot } from "./shareSnapshot";
-import { isSnapshotInTargetRegion } from "./isSnapshotInTargetRegion";
+import { isSnapshotInQuarantineRegion } from "./isSnapshotInQuarantineRegion";
 import { waitForSnapshotCompletion } from "./waitForSnapshotCompletion";
 import { describeVolumes } from "../volumes/describeVolumes";
 import { logger } from "../../../../logger";
@@ -16,11 +16,11 @@ export const exportSnapshotToTargetAwsAccount = async (
     return;
   }
 
-  if (!isSnapshotInTargetRegion(config)) {
+  if (!isSnapshotInQuarantineRegion(config)) {
     snapshot = await copySnapshotToTargetRegion(config, snapshot);
   }
 
-  if (config.targetAwsAccounts) {
+  if (config.quarantineAwsAccounts) {
     await shareSnapshot(config, snapshot);
   }
 };

@@ -6,7 +6,7 @@ export const describeExportEbsSnapshotsPlan = async (config: EbsConfig, instance
   let message = config.transferAllSnapshots ? `All snapshots from` : `Latest snapshots`;
   message += `from the EBS volumes attached to instance ${instanceId} will be exported to audit account: \n`;
 
-  if (process.env.AWS_REGION !== config.quarantineAwsRegion) {
+  if (config.sourceAwsRegion !== config.quarantineAwsRegion) {
     message += `These snapshots will first be copied to this region first: ${config.quarantineAwsRegion} \n`;
   }
 
