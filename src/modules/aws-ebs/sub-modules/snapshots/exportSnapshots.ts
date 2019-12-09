@@ -8,27 +8,17 @@ import { waitForSnapshotCompletion } from "./waitForSnapshotCompletion";
 import { describeVolumes } from "../volumes/describeVolumes";
 import { logger } from "../../../../logger";
 
-export const exportSnapshotToTargetAwsAccount = async (
-  config: EbsConfig,
-  snapshot: string | undefined,
-): Promise<void> => {
-  if (!snapshot) {
-    return;
-  }
-
+export const exportSnapshotToTargetAwsAccount = async (config: EbsConfig, snapshot: string): Promise<void> => {
   if (!isSnapshotInQuarantineRegion(config)) {
     snapshot = await copySnapshotToTargetRegion(config, snapshot);
   }
 
-  if (config.quarantineAwsAccounts) {
+  if (config.quarantineAwsAccounts.length !== 0) {
     await shareSnapshot(config, snapshot);
   }
 };
 
-export const exportSnapshotsToTargetAwsAccount = async (
-  config: EbsConfig,
-  snapshots: (string | undefined)[],
-): Promise<void> => {
+export const exportSnapshotsToTargetAwsAccount = async (config: EbsConfig, snapshots: string[]): Promise<void> => {
   for (const snapshot of snapshots) {
     await exportSnapshotToTargetAwsAccount(config, snapshot);
   }
@@ -37,7 +27,6 @@ export const exportSnapshotsToTargetAwsAccount = async (
 export const exportSnapshotsFromVolumes = async (config: EbsConfig, volumes: string[]): Promise<void> => {
   for (const volume of volumes) {
     const latestSnapshotId = await createSnapshot(volume);
-
     await waitForSnapshotCompletion(latestSnapshotId);
 
     const snapshotsToExport = config.transferAllSnapshots ? await describeSnapshotIds(volume) : [latestSnapshotId];
