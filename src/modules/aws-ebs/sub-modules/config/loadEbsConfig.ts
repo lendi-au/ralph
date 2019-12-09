@@ -30,9 +30,6 @@ export const loadEbsConfig = (): EbsConfig => {
       ? process.env.TRANSFER_ALL_SNAPSHOTS == "true"
       : false;
 
-  if (!process.env.QUARANTINE_AWS_ACCOUNTS || process.env.QUARANTINE_AWS_ACCOUNTS === "undefined") {
-  }
-
   return {
     sourceAwsRegion,
     quarantineAwsRegion,
