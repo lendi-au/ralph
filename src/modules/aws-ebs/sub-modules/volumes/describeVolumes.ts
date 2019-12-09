@@ -16,11 +16,9 @@ export const describeVolumes = async (instanceId: string): Promise<(string)[]> =
     return [];
   }
 
-  const volumes = describeVolumes.Volumes.map(volumes => {
-    if (!volumes.VolumeId) return "";
-
-    return volumes.VolumeId;
+  return describeVolumes.Volumes.map(volumes => {
+    return volumes.VolumeId || "";
+  }).filter(volumeId => {
+    return volumeId !== "";
   });
-
-  return volumes;
 };

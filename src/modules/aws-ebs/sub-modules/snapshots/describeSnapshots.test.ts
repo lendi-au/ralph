@@ -37,7 +37,7 @@ describe("describeSnapshotIds()", () => {
     expect(await describeSnapshotIds(volumeId)).toEqual(expectedResult);
   });
 
-  it("should return if response is in proper format", async () => {
+  it("should return properly if one element in the response is malformed", async () => {
     const volumeId = "vol-000";
     const expectedResult: string[] = ["100"];
     const returnValue = {
@@ -57,7 +57,7 @@ describe("describeSnapshotIds()", () => {
 
     expect(await describeSnapshotIds(volumeId)).toEqual(expectedResult);
   });
-  it("should return if response is in proper format", async () => {
+  it("should return properly if all elements in the response is in proper format", async () => {
     const volumeId = "vol-000";
     const expectedResult: string[] = ["100", "101"];
     const returnValue = {
