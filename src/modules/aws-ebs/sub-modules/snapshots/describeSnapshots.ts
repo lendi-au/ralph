@@ -1,6 +1,6 @@
 import { EC2 } from "aws-sdk";
 
-export const describeSnapshotIds = async (volumeId: string): Promise<(string | undefined)[]> => {
+export const describeSnapshotIds = async (volumeId: string): Promise<string[]> => {
   const ec2 = new EC2();
 
   const params = {
@@ -19,6 +19,8 @@ export const describeSnapshotIds = async (volumeId: string): Promise<(string | u
   }
 
   return snapshots.Snapshots.map(snapshot => {
-    return snapshot.SnapshotId;
+    return snapshot.SnapshotId || "";
+  }).filter(snapshotId => {
+    return snapshotId !== "";
   });
 };
