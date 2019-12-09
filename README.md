@@ -20,8 +20,12 @@ automate incident response.
 2. Enable Termination Protection - Enables termination protection for an instance.
    This gives an extra step to prevent accidental termination of an instance.
 
-3. Set Shutdown Behavior to Stop - Setting shutdown behavior to stop guarantees
+3. Set Shutdown Behavior to Stop - Sets shutdown behavior to stop guarantees
    that the shutting down the instance will not result to termination of the instance.
+
+4. Taking EBS Snapshot and Export - Creates latest EBS snapshot from volumes
+   of an instance and possibly send it to a quarantine AWS account.
+   See `Setup` section below on how to configure env variables for this runbook.
 
 ## Installation
 
@@ -58,6 +62,12 @@ export QUARANTINE_AWS_REGION="ap-southeast-1"
 export QUARANTINE_AWS_ACCOUNTS="0000,0001,0002"
 export TRANSFER_ALL_SNAPSHOTS="false"
 ```
+
+- QUARANTINE_AWS_REGION - the region that the quarantine AWS account will use
+- QUARANTINE_AWS_ACCOUNTS - list of quarantine AWS account
+  whom to share the snapshots to
+- TRANSFER_ALL_SNAPSHOTS - decides whether to
+  copy and share all snapshots or just the latest snapshot
 
 ## Usage
 
