@@ -63,11 +63,17 @@ export QUARANTINE_AWS_ACCOUNTS="0000,0001,0002"
 export TRANSFER_ALL_SNAPSHOTS="false"
 ```
 
-- QUARANTINE_AWS_REGION - the region that the quarantine AWS account will use
-- QUARANTINE_AWS_ACCOUNTS - list of quarantine AWS account
-  whom to share the snapshots to
-- TRANSFER_ALL_SNAPSHOTS - decides whether to
-  copy and share all snapshots or just the latest snapshot
+- `QUARANTINE_AWS_REGION` - the region used for the quarantine AWS  
+  account. If not defined, this will use the AWS REGION of
+  the current AWS account.
+
+- `QUARANTINE_AWS_ACCOUNTS` - list of quarantine AWS account
+  whom to share the snapshots to. If not defined,
+  the current AWS account will be treated as
+  the quarantine AWS account.
+
+- `TRANSFER_ALL_SNAPSHOTS` - decides whether to
+  copy and share just the latest snapshot or all of them.
 
 ## Usage
 

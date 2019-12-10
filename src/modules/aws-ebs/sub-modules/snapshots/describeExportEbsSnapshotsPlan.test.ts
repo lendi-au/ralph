@@ -20,7 +20,7 @@ describe("describeExportEbsSnapshotsPlan()", () => {
     const expectedMessage = "001: Instance has no volumes. No action will be taken.";
 
     const spyDescribeVolumes = sinon.stub(describeVolumes, "describeVolumes");
-    spyDescribeVolumes.resolves([]);
+    spyDescribeVolumes.withArgs(instanceId).resolves([]);
 
     expect(await describeExportEbsSnapshotsPlan(ebsConfig, instanceId)).toEqual(expectedMessage);
   });
@@ -42,7 +42,7 @@ will create a latest snapshot out of this volume.\nAll copied snapshots will \
 then be exported to quarantine AWS Accounts: 00000000.";
 
     const spyDescribeVolumes = sinon.stub(describeVolumes, "describeVolumes");
-    spyDescribeVolumes.resolves(["vol-001"]);
+    spyDescribeVolumes.withArgs(instanceId).resolves(["vol-001"]);
 
     const spyDescribeSnapshotsIds = sinon.stub(describeSnapshotIds, "describeSnapshotIds");
     spyDescribeSnapshotsIds.resolves(["snap-001"]);
@@ -67,7 +67,7 @@ will create a latest snapshot out of this volume.\nAll copied snapshots will \
 then be exported to quarantine AWS Accounts: 00000000.";
 
     const spyDescribeVolumes = sinon.stub(describeVolumes, "describeVolumes");
-    spyDescribeVolumes.resolves(["vol-001"]);
+    spyDescribeVolumes.withArgs(instanceId).resolves(["vol-001"]);
 
     expect(await describeExportEbsSnapshotsPlan(ebsConfig, instanceId)).toEqual(expectedMessage);
   });
@@ -81,18 +81,26 @@ then be exported to quarantine AWS Accounts: 00000000.";
     };
 
     const instanceId = "001";
+    const volumeId1 = "vol-001";
+    const volumeId2 = "vol-002";
+    const volumes = [volumeId1, volumeId2];
+    const snapshots1 = ["snap-001", "snap-002"];
+    const snapshots2 = ["snap-003"];
+
     const expectedMessage =
       "All snapshots from the EBS volumes attached to instance 001 will be \
 exported to quarantine accounts.\nThese snapshots will first be copied to \
-this region first: ap-southeast-2\nVolumes: vol-001\nvol-001:\n  - Ralph \
+this region first: ap-southeast-2\nVolumes: vol-001,vol-002\nvol-001:\n  - Ralph \
 will create a latest snapshot out of this volume.\n  - snap-001\n  - snap-002\n\
-All copied snapshots will then be exported to quarantine AWS Accounts: 00000000.";
+vol-002:\n  - Ralph will create a latest snapshot out of this volume.\n  - snap-003\
+\nAll copied snapshots will then be exported to quarantine AWS Accounts: 00000000.";
 
     const spyDescribeVolumes = sinon.stub(describeVolumes, "describeVolumes");
-    spyDescribeVolumes.resolves(["vol-001"]);
+    spyDescribeVolumes.withArgs(instanceId).resolves(volumes);
 
     const spyDescribeSnapshotsIds = sinon.stub(describeSnapshotIds, "describeSnapshotIds");
-    spyDescribeSnapshotsIds.resolves(["snap-001", "snap-002"]);
+    spyDescribeSnapshotsIds.withArgs(volumeId1).resolves(snapshots1);
+    spyDescribeSnapshotsIds.withArgs(volumeId2).resolves(snapshots2);
 
     expect(await describeExportEbsSnapshotsPlan(ebsConfig, instanceId)).toEqual(expectedMessage);
   });
@@ -106,6 +114,8 @@ All copied snapshots will then be exported to quarantine AWS Accounts: 00000000.
     };
 
     const instanceId = "001";
+    const volumeId1 = "vol-001";
+    const volumes = [volumeId1];
     const expectedMessage =
       "All snapshots from the EBS volumes attached to instance 001 will be \
 exported to quarantine accounts.\nThese snapshots will first be copied to \
@@ -114,10 +124,10 @@ will create a latest snapshot out of this volume.\n\
 All copied snapshots will then be exported to quarantine AWS Accounts: 00000000.";
 
     const spyDescribeVolumes = sinon.stub(describeVolumes, "describeVolumes");
-    spyDescribeVolumes.resolves(["vol-001"]);
+    spyDescribeVolumes.withArgs(instanceId).resolves(volumes);
 
     const spyDescribeSnapshotsIds = sinon.stub(describeSnapshotIds, "describeSnapshotIds");
-    spyDescribeSnapshotsIds.resolves([]);
+    spyDescribeSnapshotsIds.withArgs(volumeId1).resolves([]);
 
     expect(await describeExportEbsSnapshotsPlan(ebsConfig, instanceId)).toEqual(expectedMessage);
   });

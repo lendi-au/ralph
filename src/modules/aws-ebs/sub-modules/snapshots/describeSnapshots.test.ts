@@ -15,9 +15,16 @@ describe("describeSnapshotIds()", () => {
     const volumeId = "vol-000";
     const expectedResult: string[] = [];
     const returnValue = {};
-
+    const params = {
+      Filters: [
+        {
+          Name: "volume-id",
+          Values: [volumeId],
+        },
+      ],
+    };
     const spyDescribeSnapshots = sinon.stub();
-    spyDescribeSnapshots.resolves(returnValue);
+    spyDescribeSnapshots.withArgs(params).resolves(returnValue);
     AWSMock.mock("EC2", "describeSnapshots", spyDescribeSnapshots);
 
     expect(await describeSnapshotIds(volumeId)).toEqual(expectedResult);
@@ -29,9 +36,17 @@ describe("describeSnapshotIds()", () => {
     const returnValue = {
       Snapshots: [],
     };
+    const params = {
+      Filters: [
+        {
+          Name: "volume-id",
+          Values: [volumeId],
+        },
+      ],
+    };
 
     const spyDescribeSnapshots = sinon.stub();
-    spyDescribeSnapshots.resolves(returnValue);
+    spyDescribeSnapshots.withArgs(params).resolves(returnValue);
     AWSMock.mock("EC2", "describeSnapshots", spyDescribeSnapshots);
 
     expect(await describeSnapshotIds(volumeId)).toEqual(expectedResult);
@@ -50,9 +65,17 @@ describe("describeSnapshotIds()", () => {
         },
       ],
     };
+    const params = {
+      Filters: [
+        {
+          Name: "volume-id",
+          Values: [volumeId],
+        },
+      ],
+    };
 
     const spyDescribeSnapshots = sinon.stub();
-    spyDescribeSnapshots.resolves(returnValue);
+    spyDescribeSnapshots.withArgs(params).resolves(returnValue);
     AWSMock.mock("EC2", "describeSnapshots", spyDescribeSnapshots);
 
     expect(await describeSnapshotIds(volumeId)).toEqual(expectedResult);
@@ -70,9 +93,17 @@ describe("describeSnapshotIds()", () => {
         },
       ],
     };
+    const params = {
+      Filters: [
+        {
+          Name: "volume-id",
+          Values: [volumeId],
+        },
+      ],
+    };
 
     const spyDescribeSnapshots = sinon.stub();
-    spyDescribeSnapshots.resolves(returnValue);
+    spyDescribeSnapshots.withArgs(params).resolves(returnValue);
     AWSMock.mock("EC2", "describeSnapshots", spyDescribeSnapshots);
 
     expect(await describeSnapshotIds(volumeId)).toEqual(expectedResult);

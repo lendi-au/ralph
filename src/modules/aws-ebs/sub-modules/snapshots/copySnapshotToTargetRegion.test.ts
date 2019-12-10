@@ -22,17 +22,25 @@ describe("copySnapshotToTargetRegion()", () => {
 
     const snapshotId = "snap-001";
     const returnValue = snapshotId;
+    const description = "Copy Snapshot Description Mock";
+    const params = {
+      Description: description,
+      SourceRegion: config.sourceAwsRegion,
+      SourceSnapshotId: snapshotId,
+    };
 
     const spyBuildCopySnapshotDescription = sinon.stub(buildCopySnapshotDescription, "buildCopySnapshotDescription");
-    spyBuildCopySnapshotDescription.returns("Copy Snapshot Description Mock");
+    spyBuildCopySnapshotDescription.withArgs(config, snapshotId).returns(description);
 
     const spyCopySnapshot = sinon.stub();
-    spyCopySnapshot.resolves({
+    spyCopySnapshot.withArgs(params).resolves({
       SnapshotId: returnValue,
     });
     AWSMock.mock("EC2", "copySnapshot", spyCopySnapshot);
 
     expect(await copySnapshotToTargetRegion(config, snapshotId)).toEqual(returnValue);
+    expect(spyBuildCopySnapshotDescription.withArgs(config, snapshotId).calledOnce).toBe(true);
+    expect(spyCopySnapshot.withArgs(params).calledOnce).toBe(true);
   });
 
   it("should throw an error if copySnapshot did not return a SnapshotId", async () => {
@@ -45,12 +53,18 @@ describe("copySnapshotToTargetRegion()", () => {
 
     const expectedErrorMessage = "Copied snapshot did not return a SnapshotId";
     const snapshotId = "snap-001";
+    const description = "Copy Snapshot Description Mock";
+    const params = {
+      Description: description,
+      SourceRegion: config.sourceAwsRegion,
+      SourceSnapshotId: snapshotId,
+    };
 
     const spyBuildCopySnapshotDescription = sinon.stub(buildCopySnapshotDescription, "buildCopySnapshotDescription");
-    spyBuildCopySnapshotDescription.returns("Copy Snapshot Description Mock");
+    spyBuildCopySnapshotDescription.withArgs(config, snapshotId).returns("Copy Snapshot Description Mock");
 
     const spyCopySnapshot = sinon.stub();
-    spyCopySnapshot.resolves({});
+    spyCopySnapshot.withArgs(params).resolves({});
     AWSMock.mock("EC2", "copySnapshot", spyCopySnapshot);
 
     expect(copySnapshotToTargetRegion(config, snapshotId)).rejects.toEqual(new Error(expectedErrorMessage));
