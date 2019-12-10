@@ -22,8 +22,11 @@ describe("checkSnapshotProgress()", () => {
       ],
     };
     const snapshotId = "snap-00000000";
+    const params = {
+      SnapshotIds: [snapshotId],
+    };
     const spyDescribeSnapshots = sinon.stub();
-    spyDescribeSnapshots.resolves(returnValue);
+    spyDescribeSnapshots.withArgs(params).resolves(returnValue);
     AWSMock.mock("EC2", "describeSnapshots", spyDescribeSnapshots);
 
     expect(await checkSnapshotProgress(snapshotId)).toEqual({
@@ -36,10 +39,13 @@ describe("checkSnapshotProgress()", () => {
   it("should throw error if snapshotAttribute.Snapshots is missing", () => {
     const returnValue = {};
     const snapshotId = "snap-00000000";
+    const params = {
+      SnapshotIds: [snapshotId],
+    };
 
     const expectedErrorMessage = "Snapshot snap-00000000 is missing or has missing required attributes.";
     const spyDescribeSnapshots = sinon.stub();
-    spyDescribeSnapshots.resolves(returnValue);
+    spyDescribeSnapshots.withArgs(params).resolves(returnValue);
     AWSMock.mock("EC2", "describeSnapshots", spyDescribeSnapshots);
 
     expect(checkSnapshotProgress(snapshotId)).rejects.toEqual(new Error(expectedErrorMessage));
@@ -50,10 +56,12 @@ describe("checkSnapshotProgress()", () => {
       Snapshots: [],
     };
     const snapshotId = "snap-00000000";
-
+    const params = {
+      SnapshotIds: [snapshotId],
+    };
     const expectedErrorMessage = "Snapshot snap-00000000 is missing or has missing required attributes.";
     const spyDescribeSnapshots = sinon.stub();
-    spyDescribeSnapshots.resolves(returnValue);
+    spyDescribeSnapshots.withArgs(params).resolves(returnValue);
     AWSMock.mock("EC2", "describeSnapshots", spyDescribeSnapshots);
 
     expect(checkSnapshotProgress(snapshotId)).rejects.toEqual(new Error(expectedErrorMessage));
@@ -69,10 +77,12 @@ describe("checkSnapshotProgress()", () => {
       ],
     };
     const snapshotId = "snap-00000000";
-
+    const params = {
+      SnapshotIds: [snapshotId],
+    };
     const expectedErrorMessage = "Snapshot snap-00000000 is missing or has missing required attributes.";
     const spyDescribeSnapshots = sinon.stub();
-    spyDescribeSnapshots.resolves(returnValue);
+    spyDescribeSnapshots.withArgs(params).resolves(returnValue);
     AWSMock.mock("EC2", "describeSnapshots", spyDescribeSnapshots);
 
     expect(checkSnapshotProgress(snapshotId)).rejects.toEqual(new Error(expectedErrorMessage));
@@ -88,10 +98,12 @@ describe("checkSnapshotProgress()", () => {
       ],
     };
     const snapshotId = "snap-00000000";
-
+    const params = {
+      SnapshotIds: [snapshotId],
+    };
     const expectedErrorMessage = "Snapshot snap-00000000 is missing or has missing required attributes.";
     const spyDescribeSnapshots = sinon.stub();
-    spyDescribeSnapshots.resolves(returnValue);
+    spyDescribeSnapshots.withArgs(params).resolves(returnValue);
     AWSMock.mock("EC2", "describeSnapshots", spyDescribeSnapshots);
 
     expect(checkSnapshotProgress(snapshotId)).rejects.toEqual(new Error(expectedErrorMessage));

@@ -29,7 +29,7 @@ describe("shareSnapshot()", () => {
     };
 
     const spyModifySnapshotAttribute = sinon.stub();
-    spyModifySnapshotAttribute.resolves();
+    spyModifySnapshotAttribute.withArgs(params).resolves();
     AWSMock.mock("EC2", "modifySnapshotAttribute", spyModifySnapshotAttribute);
 
     await shareSnapshot(ebsConfig, snapshotId);

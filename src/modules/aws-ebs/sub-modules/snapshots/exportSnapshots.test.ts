@@ -25,7 +25,7 @@ describe("exportSnapshotToTargetAwsAccount()", () => {
     };
 
     const spyIsSnapshotInQuarantineRegion = sinon.stub(isSnapshotInQuarantineRegion, "isSnapshotInQuarantineRegion");
-    spyIsSnapshotInQuarantineRegion.returns(false);
+    spyIsSnapshotInQuarantineRegion.withArgs(ebsConfig).returns(false);
 
     const spyCopySnapshotToTargetRegion = sinon.stub(copySnapshotToTargetRegion, "copySnapshotToTargetRegion");
     spyCopySnapshotToTargetRegion.withArgs(ebsConfig, snapshot).resolves(copiedSnapshot);
@@ -35,6 +35,7 @@ describe("exportSnapshotToTargetAwsAccount()", () => {
 
     await exportSnapshots.exportSnapshotToTargetAwsAccount(ebsConfig, snapshot);
 
+    expect(spyIsSnapshotInQuarantineRegion.withArgs(ebsConfig).calledOnce).toBe(true);
     expect(spyCopySnapshotToTargetRegion.withArgs(ebsConfig, snapshot).calledOnce).toBe(true);
     expect(spyShareSnapshot.withArgs(ebsConfig, copiedSnapshot).calledOnce).toBe(true);
   });
@@ -51,7 +52,7 @@ describe("exportSnapshotToTargetAwsAccount()", () => {
     };
 
     const spyIsSnapshotInQuarantineRegion = sinon.stub(isSnapshotInQuarantineRegion, "isSnapshotInQuarantineRegion");
-    spyIsSnapshotInQuarantineRegion.returns(true);
+    spyIsSnapshotInQuarantineRegion.withArgs(ebsConfig).returns(true);
 
     const spyCopySnapshotToTargetRegion = sinon.stub(copySnapshotToTargetRegion, "copySnapshotToTargetRegion");
     spyCopySnapshotToTargetRegion.withArgs(ebsConfig, snapshot).resolves(copiedSnapshot);
@@ -60,6 +61,7 @@ describe("exportSnapshotToTargetAwsAccount()", () => {
 
     await exportSnapshots.exportSnapshotToTargetAwsAccount(ebsConfig, snapshot);
 
+    expect(spyIsSnapshotInQuarantineRegion.withArgs(ebsConfig).calledOnce).toBe(true);
     expect(spyCopySnapshotToTargetRegion.withArgs(ebsConfig, snapshot).calledOnce).toBe(false);
     expect(spyShareSnapshot.withArgs(ebsConfig, copiedSnapshot).calledOnce).toBe(true);
   });
@@ -76,7 +78,7 @@ describe("exportSnapshotToTargetAwsAccount()", () => {
     };
 
     const spyIsSnapshotInQuarantineRegion = sinon.stub(isSnapshotInQuarantineRegion, "isSnapshotInQuarantineRegion");
-    spyIsSnapshotInQuarantineRegion.returns(false);
+    spyIsSnapshotInQuarantineRegion.withArgs(ebsConfig).returns(false);
 
     const spyCopySnapshotToTargetRegion = sinon.stub(copySnapshotToTargetRegion, "copySnapshotToTargetRegion");
     spyCopySnapshotToTargetRegion.withArgs(ebsConfig, snapshot).resolves(copiedSnapshot);
@@ -86,6 +88,7 @@ describe("exportSnapshotToTargetAwsAccount()", () => {
 
     await exportSnapshots.exportSnapshotToTargetAwsAccount(ebsConfig, snapshot);
 
+    expect(spyIsSnapshotInQuarantineRegion.withArgs(ebsConfig).calledOnce).toBe(true);
     expect(spyCopySnapshotToTargetRegion.withArgs(ebsConfig, snapshot).calledOnce).toBe(true);
     expect(spyShareSnapshot.withArgs(ebsConfig, copiedSnapshot).calledOnce).toBe(false);
   });
@@ -102,7 +105,7 @@ describe("exportSnapshotToTargetAwsAccount()", () => {
     };
 
     const spyIsSnapshotInQuarantineRegion = sinon.stub(isSnapshotInQuarantineRegion, "isSnapshotInQuarantineRegion");
-    spyIsSnapshotInQuarantineRegion.returns(true);
+    spyIsSnapshotInQuarantineRegion.withArgs(ebsConfig).returns(true);
 
     const spyCopySnapshotToTargetRegion = sinon.stub(copySnapshotToTargetRegion, "copySnapshotToTargetRegion");
     spyCopySnapshotToTargetRegion.withArgs(ebsConfig, snapshot).resolves(copiedSnapshot);
@@ -112,6 +115,7 @@ describe("exportSnapshotToTargetAwsAccount()", () => {
 
     await exportSnapshots.exportSnapshotToTargetAwsAccount(ebsConfig, snapshot);
 
+    expect(spyIsSnapshotInQuarantineRegion.withArgs(ebsConfig).calledOnce).toBe(true);
     expect(spyCopySnapshotToTargetRegion.withArgs(ebsConfig, snapshot).calledOnce).toBe(false);
     expect(spyShareSnapshot.withArgs(ebsConfig, copiedSnapshot).calledOnce).toBe(false);
   });
@@ -175,7 +179,9 @@ describe("exportSnapshotsFromVolumes()", () => {
     spyCreateSnapshots.withArgs(volume3).resolves(createdSnapshot3);
 
     const spyWaitForSnapshotCompletion = sinon.stub(waitForSnapshotCompletion, "waitForSnapshotCompletion");
-    spyWaitForSnapshotCompletion.resolves();
+    spyWaitForSnapshotCompletion.withArgs(createdSnapshot1).resolves();
+    spyWaitForSnapshotCompletion.withArgs(createdSnapshot2).resolves();
+    spyWaitForSnapshotCompletion.withArgs(createdSnapshot3).resolves();
 
     const spyDescribeSnapshotIds = sinon.stub(describeSnapshotIds, "describeSnapshotIds");
     spyDescribeSnapshotIds.withArgs(volume1).resolves(volumeSnapshots1);
@@ -183,7 +189,9 @@ describe("exportSnapshotsFromVolumes()", () => {
     spyDescribeSnapshotIds.withArgs(volume3).resolves(volumeSnapshots3);
 
     const spyExportSnapshotsToTargetAwsAccount = sinon.stub(exportSnapshots, "exportSnapshotsToTargetAwsAccount");
-    spyExportSnapshotsToTargetAwsAccount.resolves();
+    spyExportSnapshotsToTargetAwsAccount.withArgs(ebsConfig, volumeSnapshots1).resolves();
+    spyExportSnapshotsToTargetAwsAccount.withArgs(ebsConfig, volumeSnapshots2).resolves();
+    spyExportSnapshotsToTargetAwsAccount.withArgs(ebsConfig, volumeSnapshots3).resolves();
 
     await exportSnapshots.exportSnapshotsFromVolumes(ebsConfig, volumes);
 
@@ -223,7 +231,9 @@ describe("exportSnapshotsFromVolumes()", () => {
     spyCreateSnapshots.withArgs(volume3).resolves(createdSnapshot3);
 
     const spyWaitForSnapshotCompletion = sinon.stub(waitForSnapshotCompletion, "waitForSnapshotCompletion");
-    spyWaitForSnapshotCompletion.resolves();
+    spyWaitForSnapshotCompletion.withArgs(createdSnapshot1).resolves();
+    spyWaitForSnapshotCompletion.withArgs(createdSnapshot2).resolves();
+    spyWaitForSnapshotCompletion.withArgs(createdSnapshot3).resolves();
 
     const spyDescribeSnapshotIds = sinon.stub(describeSnapshotIds, "describeSnapshotIds");
     spyDescribeSnapshotIds.withArgs(volume1).resolves([createdSnapshot1]);
@@ -231,7 +241,9 @@ describe("exportSnapshotsFromVolumes()", () => {
     spyDescribeSnapshotIds.withArgs(volume3).resolves([createdSnapshot3]);
 
     const spyExportSnapshotsToTargetAwsAccount = sinon.stub(exportSnapshots, "exportSnapshotsToTargetAwsAccount");
-    spyExportSnapshotsToTargetAwsAccount.resolves();
+    spyExportSnapshotsToTargetAwsAccount.withArgs(ebsConfig, [createdSnapshot1]).resolves();
+    spyExportSnapshotsToTargetAwsAccount.withArgs(ebsConfig, [createdSnapshot2]).resolves();
+    spyExportSnapshotsToTargetAwsAccount.withArgs(ebsConfig, [createdSnapshot3]).resolves();
 
     await exportSnapshots.exportSnapshotsFromVolumes(ebsConfig, volumes);
 
