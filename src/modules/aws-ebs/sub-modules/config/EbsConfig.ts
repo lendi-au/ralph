@@ -1,6 +1,8 @@
+import { AwsRegion } from "../../../region/AwsRegion";
+
 export interface EbsConfig {
-  sourceAwsRegion: string;
-  quarantineAwsRegion: string;
+  sourceAwsRegion: AwsRegion;
+  quarantineAwsRegion: AwsRegion;
   quarantineAwsAccounts: string[];
   transferAllSnapshots: boolean;
 }

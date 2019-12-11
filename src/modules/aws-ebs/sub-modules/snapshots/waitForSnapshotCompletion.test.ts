@@ -1,43 +1,36 @@
-// test sleep -> setTimeout was called?
-
-// wait 4 completion
-// checkSnapshotProgress was called on snapshotid params
-// isSnapshotInCompletedState
-
 import * as sinon from "sinon";
 import * as isSnapshotInCompletedState from "./isSnapshotInCompletedState";
 import * as waitForSnapshotCompletion from "./waitForSnapshotCompletion";
 import * as extractSnapshotProgress from "./extractSnapshotProgress";
 import * as checkSnapshotProgress from "./checkSnapshotProgress";
+import { SnapshotState } from "./SnapshotState";
 
 describe("waitForSnapshotCompletion()", () => {
   it("should poll until snapshot is completed", async () => {
     const snapshotId = "snap-001";
 
-    // Mock setTimeout
     const spySleep = sinon.stub(waitForSnapshotCompletion, "sleep");
     spySleep.resolves();
 
-    // Mock completion of snapshot creation on third call
     const spyIsSnapshotInCompletedState = sinon.stub(isSnapshotInCompletedState, "isSnapshotInCompletedState");
     spyIsSnapshotInCompletedState.onFirstCall().returns(false);
     spyIsSnapshotInCompletedState.onSecondCall().returns(false);
     spyIsSnapshotInCompletedState.onThirdCall().returns(true);
 
     const snapshotProgress1 = {
-      state: "pending",
+      state: SnapshotState.PENDING,
       progress: "0%",
       volumeSize: 8,
     };
 
     const snapshotProgress2 = {
-      state: "pending",
+      state: SnapshotState.PENDING,
       progress: "75%",
       volumeSize: 8,
     };
 
     const snapshotProgress3 = {
-      state: "completed",
+      state: SnapshotState.COMPLETED,
       progress: "100%",
       volumeSize: 8,
     };

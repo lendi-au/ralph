@@ -2,6 +2,7 @@ import * as AWS from "aws-sdk";
 import * as AWSMock from "aws-sdk-mock";
 import * as sinon from "sinon";
 import { checkSnapshotProgress } from "./checkSnapshotProgress";
+import { SnapshotState } from "./SnapshotState";
 
 AWSMock.setSDKInstance(AWS);
 
@@ -15,7 +16,7 @@ describe("checkSnapshotProgress()", () => {
     const returnValue = {
       Snapshots: [
         {
-          State: "pending",
+          State: SnapshotState.PENDING,
           Progress: "0%",
           VolumeSize: "8",
         },
@@ -30,7 +31,7 @@ describe("checkSnapshotProgress()", () => {
     AWSMock.mock("EC2", "describeSnapshots", spyDescribeSnapshots);
 
     expect(await checkSnapshotProgress(snapshotId)).toEqual({
-      state: "pending",
+      state: SnapshotState.PENDING,
       progress: "0%",
       volumeSize: "8",
     });
@@ -92,7 +93,7 @@ describe("checkSnapshotProgress()", () => {
     const returnValue = {
       Snapshots: [
         {
-          State: "pending",
+          State: SnapshotState.PENDING,
           VolumeSize: "8",
         },
       ],
@@ -113,7 +114,7 @@ describe("checkSnapshotProgress()", () => {
     const returnValue = {
       Snapshots: [
         {
-          State: "pending",
+          State: SnapshotState.PENDING,
           Progress: "0%",
         },
       ],
