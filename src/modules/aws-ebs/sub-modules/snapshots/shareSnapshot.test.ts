@@ -3,6 +3,8 @@ import * as AWSMock from "aws-sdk-mock";
 import * as sinon from "sinon";
 import { EbsConfig } from "../config/EbsConfig";
 import { shareSnapshot } from "./shareSnapshot";
+import { EC2 } from "aws-sdk";
+import { extractAwsRegion } from "../../../region/extractAwsRegion";
 
 AWSMock.setSDKInstance(AWS);
 
@@ -15,13 +17,13 @@ describe("shareSnapshot()", () => {
   it("should pass the right parameters to modifySnapshotAttribute on the right EC2 region", async () => {
     const snapshotId = "snap-000";
     const ebsConfig: EbsConfig = {
-      sourceAwsRegion: "ap-southeast-1",
+      sourceAwsRegion: extractAwsRegion("ap-southeast-1"),
       quarantineAwsAccounts: ["000", "001"],
-      quarantineAwsRegion: "ap-southeast-2",
+      quarantineAwsRegion: extractAwsRegion("ap-southeast-2"),
       transferAllSnapshots: false,
     };
 
-    const params = {
+    const params: EC2.ModifySnapshotAttributeRequest = {
       SnapshotId: "snap-000",
       Attribute: "createVolumePermission",
       OperationType: "add",

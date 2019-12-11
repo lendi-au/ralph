@@ -3,6 +3,7 @@ import * as AWSMock from "aws-sdk-mock";
 import * as sinon from "sinon";
 import * as buildCopySnapshotDescription from "./buildCopySnapshotDescription";
 import { copySnapshotToTargetRegion } from "./copySnapshotToTargetRegion";
+import { AwsRegion } from "../../../region/AwsRegion";
 
 AWSMock.setSDKInstance(AWS);
 
@@ -14,8 +15,8 @@ describe("copySnapshotToTargetRegion()", () => {
 
   it("should return SnapshotId when copySnapshot call is successful", async () => {
     const config = {
-      sourceAwsRegion: "ap-southeast-2",
-      quarantineAwsRegion: "ap-southeast-2",
+      sourceAwsRegion: AwsRegion.AP_SOUTHEAST_2,
+      quarantineAwsRegion: AwsRegion.AP_SOUTHEAST_2,
       quarantineAwsAccounts: [],
       transferAllSnapshots: true,
     };
@@ -45,8 +46,8 @@ describe("copySnapshotToTargetRegion()", () => {
 
   it("should throw an error if copySnapshot did not return a SnapshotId", async () => {
     const config = {
-      sourceAwsRegion: "ap-southeast-2",
-      quarantineAwsRegion: "ap-southeast-2",
+      sourceAwsRegion: AwsRegion.AP_SOUTHEAST_2,
+      quarantineAwsRegion: AwsRegion.AP_SOUTHEAST_2,
       quarantineAwsAccounts: [],
       transferAllSnapshots: true,
     };

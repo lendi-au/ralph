@@ -7,6 +7,7 @@ import * as describeSnapshotIds from "./describeSnapshots";
 import * as isSnapshotInQuarantineRegion from "./isSnapshotInQuarantineRegion";
 import * as copySnapshotToTargetRegion from "./copySnapshotToTargetRegion";
 import * as shareSnapshot from "./shareSnapshot";
+import { AwsRegion } from "../../../region/AwsRegion";
 
 describe("exportSnapshotToTargetAwsAccount()", () => {
   afterEach(() => {
@@ -18,10 +19,10 @@ describe("exportSnapshotToTargetAwsAccount()", () => {
     const copiedSnapshot = "snap-101";
 
     const ebsConfig = {
-      quarantineAwsRegion: "ap-southeast-2",
+      quarantineAwsRegion: AwsRegion.AP_SOUTHEAST_2,
       quarantineAwsAccounts: ["00000000"],
       transferAllSnapshots: true,
-      sourceAwsRegion: "ap-southeast-1",
+      sourceAwsRegion: AwsRegion.AP_SOUTHEAST_2,
     };
 
     const spyIsSnapshotInQuarantineRegion = sinon.stub(isSnapshotInQuarantineRegion, "isSnapshotInQuarantineRegion");
@@ -45,10 +46,10 @@ describe("exportSnapshotToTargetAwsAccount()", () => {
     const copiedSnapshot = snapshot;
 
     const ebsConfig = {
-      quarantineAwsRegion: "ap-southeast-1",
+      quarantineAwsRegion: AwsRegion.AP_SOUTHEAST_1,
       quarantineAwsAccounts: ["00000000"],
       transferAllSnapshots: true,
-      sourceAwsRegion: "ap-southeast-1",
+      sourceAwsRegion: AwsRegion.AP_SOUTHEAST_1,
     };
 
     const spyIsSnapshotInQuarantineRegion = sinon.stub(isSnapshotInQuarantineRegion, "isSnapshotInQuarantineRegion");
@@ -71,10 +72,10 @@ describe("exportSnapshotToTargetAwsAccount()", () => {
     const copiedSnapshot = "snap-101";
 
     const ebsConfig = {
-      quarantineAwsRegion: "ap-southeast-2",
+      quarantineAwsRegion: AwsRegion.AP_SOUTHEAST_2,
       quarantineAwsAccounts: [],
       transferAllSnapshots: true,
-      sourceAwsRegion: "ap-southeast-1",
+      sourceAwsRegion: AwsRegion.AP_SOUTHEAST_1,
     };
 
     const spyIsSnapshotInQuarantineRegion = sinon.stub(isSnapshotInQuarantineRegion, "isSnapshotInQuarantineRegion");
@@ -98,10 +99,10 @@ describe("exportSnapshotToTargetAwsAccount()", () => {
     const copiedSnapshot = "snap-101";
 
     const ebsConfig = {
-      quarantineAwsRegion: "ap-southeast-1",
+      quarantineAwsRegion: AwsRegion.AP_SOUTHEAST_1,
       quarantineAwsAccounts: [],
       transferAllSnapshots: true,
-      sourceAwsRegion: "ap-southeast-1",
+      sourceAwsRegion: AwsRegion.AP_SOUTHEAST_1,
     };
 
     const spyIsSnapshotInQuarantineRegion = sinon.stub(isSnapshotInQuarantineRegion, "isSnapshotInQuarantineRegion");
@@ -132,10 +133,10 @@ describe("exportSnapshotsToTargetAwsAccount()", () => {
     const snap3 = "snap-003";
     const snapshots = [snap1, snap2, snap3];
     const ebsConfig = {
-      quarantineAwsRegion: "ap-southeast-2",
+      quarantineAwsRegion: AwsRegion.AP_SOUTHEAST_2,
       quarantineAwsAccounts: ["00000000"],
       transferAllSnapshots: true,
-      sourceAwsRegion: "ap-southeast-1",
+      sourceAwsRegion: AwsRegion.AP_SOUTHEAST_1,
     };
 
     const spyExportSnapshotToTargetAwsAccount = sinon.stub(exportSnapshots, "exportSnapshotToTargetAwsAccount");
@@ -167,10 +168,10 @@ describe("exportSnapshotsFromVolumes()", () => {
 
     const volumes = [volume1, volume2, volume3];
     const ebsConfig = {
-      quarantineAwsRegion: "ap-southeast-2",
+      quarantineAwsRegion: AwsRegion.AP_SOUTHEAST_2,
       quarantineAwsAccounts: ["00000000"],
       transferAllSnapshots: true,
-      sourceAwsRegion: "ap-southeast-1",
+      sourceAwsRegion: AwsRegion.AP_SOUTHEAST_1,
     };
 
     const spyCreateSnapshots = sinon.stub(createSnapshot, "createSnapshot");
@@ -219,10 +220,10 @@ describe("exportSnapshotsFromVolumes()", () => {
 
     const volumes = [volume1, volume2, volume3];
     const ebsConfig = {
-      quarantineAwsRegion: "ap-southeast-2",
+      quarantineAwsRegion: AwsRegion.AP_SOUTHEAST_2,
       quarantineAwsAccounts: ["00000000"],
       transferAllSnapshots: false,
-      sourceAwsRegion: "ap-southeast-1",
+      sourceAwsRegion: AwsRegion.AP_SOUTHEAST_1,
     };
 
     const spyCreateSnapshots = sinon.stub(createSnapshot, "createSnapshot");
@@ -268,10 +269,10 @@ describe("exportSnapshotsFromInstance()", () => {
 
   it("should call describeVolumes and exportSnapshotsFromVolumes()", async () => {
     const ebsConfig = {
-      quarantineAwsRegion: "ap-southeast-2",
+      quarantineAwsRegion: AwsRegion.AP_SOUTHEAST_2,
       quarantineAwsAccounts: ["00000000"],
       transferAllSnapshots: false,
-      sourceAwsRegion: "ap-southeast-1",
+      sourceAwsRegion: AwsRegion.AP_SOUTHEAST_1,
     };
     const instanceId = "001";
     const volumes = ["vol-001"];

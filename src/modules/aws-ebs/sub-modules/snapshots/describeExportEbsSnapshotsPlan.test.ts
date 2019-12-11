@@ -2,6 +2,7 @@ import * as sinon from "sinon";
 import { describeExportEbsSnapshotsPlan } from "./describeExportEbsSnapshotsPlan";
 import * as describeSnapshotIds from "./describeSnapshots";
 import * as describeVolumes from "../volumes/describeVolumes";
+import { extractAwsRegion } from "../../../region/extractAwsRegion";
 
 describe("describeExportEbsSnapshotsPlan()", () => {
   afterEach(() => {
@@ -10,10 +11,10 @@ describe("describeExportEbsSnapshotsPlan()", () => {
 
   it("should inform user that no action will be taken when instance has no attached volumes.", async () => {
     const ebsConfig = {
-      quarantineAwsRegion: "ap-southeast-2",
+      quarantineAwsRegion: extractAwsRegion("ap-southeast-2"),
       quarantineAwsAccounts: ["00000000"],
       transferAllSnapshots: false,
-      sourceAwsRegion: "ap-southeast-1",
+      sourceAwsRegion: extractAwsRegion("ap-southeast-1"),
     };
 
     const instanceId = "001";
@@ -27,10 +28,10 @@ describe("describeExportEbsSnapshotsPlan()", () => {
 
   it("should tell user if the snapshots will be copied to a target region first", async () => {
     const ebsConfig = {
-      quarantineAwsRegion: "ap-southeast-2",
+      quarantineAwsRegion: extractAwsRegion("ap-southeast-2"),
       quarantineAwsAccounts: ["00000000"],
       transferAllSnapshots: false,
-      sourceAwsRegion: "ap-southeast-1",
+      sourceAwsRegion: extractAwsRegion("ap-southeast-1"),
     };
 
     const instanceId = "001";
@@ -52,10 +53,10 @@ then be exported to quarantine AWS Accounts: 00000000.";
 
   it("should handle when transferAllSnapshots is set to false", async () => {
     const ebsConfig = {
-      quarantineAwsRegion: "ap-southeast-2",
+      quarantineAwsRegion: extractAwsRegion("ap-southeast-2"),
       quarantineAwsAccounts: ["00000000"],
       transferAllSnapshots: false,
-      sourceAwsRegion: "ap-southeast-1",
+      sourceAwsRegion: extractAwsRegion("ap-southeast-1"),
     };
 
     const instanceId = "001";
@@ -74,10 +75,10 @@ then be exported to quarantine AWS Accounts: 00000000.";
 
   it("should handle when volumes have snapshots and if transferAllSnapshots is set to true", async () => {
     const ebsConfig = {
-      quarantineAwsRegion: "ap-southeast-2",
+      quarantineAwsRegion: extractAwsRegion("ap-southeast-2"),
       quarantineAwsAccounts: ["00000000"],
       transferAllSnapshots: true,
-      sourceAwsRegion: "ap-southeast-1",
+      sourceAwsRegion: extractAwsRegion("ap-southeast-1"),
     };
 
     const instanceId = "001";
@@ -107,10 +108,10 @@ vol-002:\n  - Ralph will create a latest snapshot out of this volume.\n  - snap-
 
   it("should handle when volumes have no snapshots and if transferAllSnapshots is set to true", async () => {
     const ebsConfig = {
-      quarantineAwsRegion: "ap-southeast-2",
+      quarantineAwsRegion: extractAwsRegion("ap-southeast-2"),
       quarantineAwsAccounts: ["00000000"],
       transferAllSnapshots: true,
-      sourceAwsRegion: "ap-southeast-1",
+      sourceAwsRegion: extractAwsRegion("ap-southeast-1"),
     };
 
     const instanceId = "001";

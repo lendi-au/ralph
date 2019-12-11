@@ -3,7 +3,7 @@ import { EbsConfig } from "../config/EbsConfig";
 import { logger } from "../../../../logger";
 
 export const shareSnapshot = async (config: EbsConfig, snapshotId: string): Promise<void> => {
-  const params = {
+  const params: EC2.ModifySnapshotAttributeRequest = {
     SnapshotId: snapshotId,
     Attribute: "createVolumePermission",
     OperationType: "add",
