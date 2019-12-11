@@ -1,6 +1,6 @@
 import { EC2 } from "aws-sdk";
 
-export const describeVolumes = async (instanceId: string): Promise<(string)[]> => {
+export const describeVolumes = async (instanceId: string): Promise<string[]> => {
   const ec2 = new EC2();
   const params = {
     Filters: [
