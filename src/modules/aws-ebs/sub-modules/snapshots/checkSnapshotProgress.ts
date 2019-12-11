@@ -13,19 +13,18 @@ export const checkSnapshotProgress = async (SnapshotId: string): Promise<Snapsho
   };
   const snapshotAttribute = await ec2.describeSnapshots(params).promise();
 
-  if (
-    !snapshotAttribute.Snapshots ||
-    !snapshotAttribute.Snapshots[0] ||
-    !snapshotAttribute.Snapshots[0].State ||
-    !snapshotAttribute.Snapshots[0].Progress ||
-    !snapshotAttribute.Snapshots[0].VolumeSize
-  ) {
+  if (!snapshotAttribute.Snapshots || !snapshotAttribute.Snapshots[0]) {
+    throw new Error(`Snapshot ${SnapshotId} is missing or has missing required attributes.`);
+  }
+  const snapshot = snapshotAttribute.Snapshots[0];
+
+  if (!snapshot.State || !snapshot.Progress || !snapshot.VolumeSize) {
     throw new Error(`Snapshot ${SnapshotId} is missing or has missing required attributes.`);
   }
 
   return {
-    state: snapshotAttribute.Snapshots[0].State,
-    progress: snapshotAttribute.Snapshots[0].Progress,
-    volumeSize: snapshotAttribute.Snapshots[0].VolumeSize,
+    state: snapshot.State,
+    progress: snapshot.Progress,
+    volumeSize: snapshot.VolumeSize,
   };
 };
